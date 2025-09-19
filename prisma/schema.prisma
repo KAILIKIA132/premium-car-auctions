@@ -1,0 +1,149 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  BUYER
+  SELLER
+  ADMIN
+}
+
+enum AuctionStatus {
+  UPCOMING
+  LIVE
+  ENDED
+  CANCELLED
+}
+
+enum CarCondition {
+  EXCELLENT
+  GOOD
+  FAIR
+  POOR
+  SALVAGE
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  REFUNDED
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  password  String?
+  role      UserRole @default(BUYER)
+  avatar    String?
+  phone     String?
+  address   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  cars      Car[]
+  bids      Bid[]
+  payments  Payment[]
+  auctions  Auction[]
+
+  @@map("users")
+}
+
+model Car {
+  id          String        @id @default(cuid())
+  make        String
+  model       String
+  year        Int
+  vin         String?       @unique
+  mileage     Int?
+  color       String?
+  condition   CarCondition
+  description String?
+  images      String[]
+  features    String[]
+  location    String
+  sellerId    String
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  // Relations
+  seller      User      @relation(fields: [sellerId], references: [id])
+  auctions    Auction[]
+
+  @@map("cars")
+}
+
+model Auction {
+  id          String        @id @default(cuid())
+  carId       String
+  sellerId    String
+  startPrice  Float
+  reservePrice Float?
+  startTime   DateTime
+  endTime     DateTime
+  status      AuctionStatus @default(UPCOMING)
+  currentBid  Float?
+  winnerId    String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  // Relations
+  car         Car     @relation(fields: [carId], references: [id])
+  seller      User    @relation(fields: [sellerId], references: [id])
+  winner      User?   @relation(fields: [winnerId], references: [id])
+  bids        Bid[]
+
+  @@map("auctions")
+}
+
+model Bid {
+  id        String   @id @default(cuid())
+  auctionId String
+  bidderId  String
+  amount    Float
+  createdAt DateTime @default(now())
+
+  // Relations
+  auction   Auction @relation(fields: [auctionId], references: [id])
+  bidder    User    @relation(fields: [bidderId], references: [id])
+
+  @@map("bids")
+}
+
+model Payment {
+  id            String        @id @default(cuid())
+  userId        String
+  auctionId     String
+  amount        Float
+  status        PaymentStatus @default(PENDING)
+  stripePaymentId String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  // Relations
+  user          User    @relation(fields: [userId], references: [id])
+
+  @@map("payments")
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String
+  message   String
+  read      Boolean  @default(false)
+  type      String
+  createdAt DateTime @default(now())
+
+  @@map("notifications")
+}
