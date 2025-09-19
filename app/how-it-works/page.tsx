@@ -9,11 +9,9 @@ import {
   CheckCircle, 
   Clock, 
   Users, 
-  Star,
-  CreditCard,
-  Globe,
-  Phone,
-  Mail
+  Award,
+  ArrowRight,
+  Play
 } from 'lucide-react'
 
 const steps = [
@@ -69,47 +67,35 @@ const steps = [
 
 const features = [
   {
-    icon: Users,
-    title: 'Expert Authentication',
-    description: 'Every vehicle undergoes a comprehensive 150-point inspection by certified automotive experts'
-  },
-  {
-    icon: Globe,
-    title: 'Global Reach',
-    description: 'Buy and sell vehicles from anywhere in the world with our international network'
-  },
-  {
     icon: Shield,
-    title: 'Secure Transactions',
-    description: 'Your money is protected in escrow until you receive and approve your vehicle'
+    title: '100% Authentic',
+    description: 'Every vehicle is professionally authenticated and verified'
   },
   {
-    icon: Star,
+    icon: Clock,
+    title: '24/7 Support',
+    description: 'Round-the-clock customer service and technical support'
+  },
+  {
+    icon: Users,
+    title: 'Expert Community',
+    description: 'Connect with car enthusiasts and industry professionals'
+  },
+  {
+    icon: Award,
     title: 'Premium Quality',
-    description: 'Only the finest vehicles make it to our platform - quality guaranteed'
+    description: 'Only the finest vehicles from trusted sellers worldwide'
   }
 ]
 
 const faqs = [
   {
-    question: 'How do I register for an auction?',
-    answer: 'Simply create a free account, verify your identity, and you can start bidding immediately. Registration takes just a few minutes and requires basic information and payment method verification.'
+    question: 'How do I participate in an auction?',
+    answer: 'Simply create an account, browse our live auctions, and place your bid. You can also set up automatic bidding to stay competitive without constant monitoring.'
   },
   {
     question: 'What payment methods do you accept?',
-    answer: 'We accept all major credit cards, bank transfers, wire transfers, and cryptocurrency. All payments are processed securely through our escrow system to protect both buyers and sellers.'
-  },
-  {
-    question: 'How does the authentication process work?',
-    answer: 'Every vehicle undergoes a comprehensive 150-point inspection by certified automotive experts. This includes mechanical inspection, history verification, and condition assessment before being listed on our platform.'
-  },
-  {
-    question: 'What if I win an auction but change my mind?',
-    answer: 'We offer a 7-day inspection period after delivery. If you\'re not completely satisfied with your purchase, you can return the vehicle for a full refund, no questions asked.'
-  },
-  {
-    question: 'Do you offer international shipping?',
-    answer: 'Yes, we ship vehicles worldwide through our network of trusted logistics partners. Shipping costs are calculated at checkout and include insurance and tracking.'
+    answer: 'We accept all major credit cards, bank transfers, and cryptocurrency. All transactions are processed through our secure escrow system for maximum protection.'
   },
   {
     question: 'How do I list my car for auction?',
@@ -129,83 +115,79 @@ export default function HowItWorksPage() {
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
               How It Works
             </h1>
-            <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto">
-              Your complete guide to buying and selling premium vehicles through our secure auction platform
+            <p className="text-xl md:text-2xl text-blue-100 mb-8 max-w-3xl mx-auto">
+              Your journey to owning the perfect car in four simple steps
             </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors flex items-center justify-center">
+                <Play className="h-5 w-5 mr-2" />
+                Watch Demo
+              </button>
+              <button className="border border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors">
+                Start Bidding
+              </button>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Steps Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Simple 4-Step Process
+              The Premium Auction Process
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              From discovery to delivery, we make car buying and selling effortless
+              From discovery to delivery, we make car buying simple and secure
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Steps List */}
-            <div className="space-y-8">
-              {steps.map((step, index) => (
-                <div
-                  key={step.number}
-                  className={`cursor-pointer p-6 rounded-lg transition-all duration-300 ${
-                    activeStep === index
-                      ? 'bg-blue-600 text-white shadow-lg transform scale-105'
-                      : 'bg-white hover:shadow-md'
-                  }`}
-                  onClick={() => setActiveStep(index)}
-                >
-                  <div className="flex items-start">
-                    <div className={`flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center mr-4 ${
-                      activeStep === index ? 'bg-white text-blue-600' : 'bg-blue-100 text-blue-600'
-                    }`}>
-                      <step.icon className="h-6 w-6" />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className={`text-xl font-semibold mb-2 ${
-                        activeStep === index ? 'text-white' : 'text-gray-900'
-                      }`}>
-                        {step.number}. {step.title}
-                      </h3>
-                      <p className={`${
-                        activeStep === index ? 'text-blue-100' : 'text-gray-600'
-                      }`}>
-                        {step.description}
-                      </p>
-                    </div>
-                  </div>
+          {/* Step Navigation */}
+          <div className="flex flex-wrap justify-center mb-12">
+            {steps.map((step, index) => (
+              <button
+                key={index}
+                onClick={() => setActiveStep(index)}
+                className={`flex items-center px-6 py-3 m-2 rounded-lg font-semibold transition-all ${
+                  activeStep === index
+                    ? 'bg-blue-600 text-white shadow-lg'
+                    : 'bg-white text-gray-700 hover:bg-blue-50'
+                }`}
+              >
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center mr-3 ${
+                  activeStep === index ? 'bg-white text-blue-600' : 'bg-blue-100 text-blue-600'
+                }`}>
+                  {step.number}
                 </div>
-              ))}
-            </div>
+                {step.title}
+              </button>
+            ))}
+          </div>
 
-            {/* Step Details */}
-            <div className="bg-white rounded-lg p-8 shadow-lg">
-              <div className="text-center mb-6">
-                <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                  <steps[activeStep].icon className="h-8 w-8 text-blue-600" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                  {steps[activeStep].title}
-                </h3>
-                <p className="text-gray-600">
-                  {steps[activeStep].description}
-                </p>
-              </div>
-              
-              <div className="space-y-4">
-                <h4 className="font-semibold text-gray-900 mb-3">What's included:</h4>
-                {steps[activeStep].details.map((detail, index) => (
-                  <div key={index} className="flex items-start">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700">{detail}</span>
+          {/* Active Step Content */}
+          <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <div className="flex items-center mb-6">
+                  <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                    <step.icon className="h-8 w-8 text-blue-600" />
                   </div>
-                ))}
+                  <div>
+                    <h3 className="text-2xl font-bold text-gray-900">{steps[activeStep].title}</h3>
+                    <p className="text-gray-600">{steps[activeStep].description}</p>
+                  </div>
+                </div>
+                
+                <div className="space-y-4">
+                  <h4 className="font-semibold text-gray-900 mb-3">What's included:</h4>
+                  {steps[activeStep].details.map((detail, index) => (
+                    <div key={index} className="flex items-start">
+                      <CheckCircle className="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700">{detail}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -227,15 +209,11 @@ export default function HowItWorksPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
               <div key={index} className="text-center group">
-                <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 group-hover:bg-blue-200 transition-colors">
-                  <feature.icon className="h-8 w-8 text-blue-600" />
+                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-600 transition-colors">
+                  <feature.icon className="h-8 w-8 text-blue-600 group-hover:text-white transition-colors" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-600">
-                  {feature.description}
-                </p>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">{feature.title}</h3>
+                <p className="text-gray-600">{feature.description}</p>
               </div>
             ))}
           </div>
@@ -250,53 +228,34 @@ export default function HowItWorksPage() {
               Frequently Asked Questions
             </h2>
             <p className="text-xl text-gray-600">
-              Everything you need to know about our platform
+              Everything you need to know about our auction process
             </p>
           </div>
 
           <div className="space-y-6">
             {faqs.map((faq, index) => (
               <div key={index} className="bg-white rounded-lg p-6 shadow-sm">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                  {faq.question}
-                </h3>
-                <p className="text-gray-600">
-                  {faq.answer}
-                </p>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">{faq.question}</h3>
+                <p className="text-gray-600">{faq.answer}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Contact Support */}
-      <section className="py-16 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Need Help Getting Started?
+      {/* CTA Section */}
+      <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            Ready to Start Your Journey?
           </h2>
-          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            Our support team is here to help you every step of the way
+          <p className="text-xl text-blue-100 mb-8">
+            Join thousands of satisfied customers who found their dream car through Premium Auctions
           </p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-            <div className="flex items-center justify-center">
-              <Phone className="h-6 w-6 mr-3" />
-              <span>+1 (555) 123-4567</span>
-            </div>
-            <div className="flex items-center justify-center">
-              <Mail className="h-6 w-6 mr-3" />
-              <span>support@premiumauctions.com</span>
-            </div>
-            <div className="flex items-center justify-center">
-              <Clock className="h-6 w-6 mr-3" />
-              <span>24/7 Live Chat</span>
-            </div>
-          </div>
-
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
-              Contact Support
+            <button className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors flex items-center justify-center">
+              Browse Auctions
+              <ArrowRight className="h-5 w-5 ml-2" />
             </button>
             <button className="border border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors">
               Start Bidding

@@ -1,6 +1,10 @@
-import NextAuth from 'next-auth'
-import { authOptions } from '@/lib/auth'
+// NextAuth route - currently using custom AuthContext
+// This file is kept for future NextAuth integration
 
-const handler = NextAuth(authOptions)
+export async function GET() {
+  return new Response('NextAuth not configured', { status: 501 })
+}
 
-export { handler as GET, handler as POST }
+export async function POST() {
+  return new Response('NextAuth not configured', { status: 501 })
+}
