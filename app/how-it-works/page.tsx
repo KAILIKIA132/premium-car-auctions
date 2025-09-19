@@ -105,6 +105,7 @@ const faqs = [
 
 export default function HowItWorksPage() {
   const [activeStep, setActiveStep] = useState(0)
+  const currentStep = steps[activeStep]
 
   return (
     <div className="min-h-screen bg-white">
@@ -171,17 +172,17 @@ export default function HowItWorksPage() {
               <div>
                 <div className="flex items-center mb-6">
                   <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mr-4">
-                    <step.icon className="h-8 w-8 text-blue-600" />
+                    <currentStep.icon className="h-8 w-8 text-blue-600" />
                   </div>
                   <div>
-                    <h3 className="text-2xl font-bold text-gray-900">{steps[activeStep].title}</h3>
-                    <p className="text-gray-600">{steps[activeStep].description}</p>
+                    <h3 className="text-2xl font-bold text-gray-900">{currentStep.title}</h3>
+                    <p className="text-gray-600">{currentStep.description}</p>
                   </div>
                 </div>
                 
                 <div className="space-y-4">
                   <h4 className="font-semibold text-gray-900 mb-3">What's included:</h4>
-                  {steps[activeStep].details.map((detail, index) => (
+                  {currentStep.details.map((detail, index) => (
                     <div key={index} className="flex items-start">
                       <CheckCircle className="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
                       <span className="text-gray-700">{detail}</span>
