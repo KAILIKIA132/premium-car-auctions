@@ -21,6 +21,7 @@ import {
   Play,
   Pause
 } from 'lucide-react'
+import { VehicleInspection } from '@/components/auctions/vehicle-inspection'
 
 // Mock auction data
 const mockAuction = {
@@ -81,7 +82,67 @@ const mockAuction = {
     inspectionDate: '2024-01-15',
     inspector: 'Marco Ferrari',
     report: 'Complete 150-point inspection passed. Vehicle in excellent condition with no issues found.'
-  }
+  },
+  inspectionReport: {
+    exterior: {
+      paint: 'EXCELLENT',
+      body: 'EXCELLENT',
+      glass: 'EXCELLENT',
+      lights: 'EXCELLENT',
+      tires: 'GOOD',
+      overall: 'EXCELLENT'
+    },
+    interior: {
+      seats: 'EXCELLENT',
+      dashboard: 'EXCELLENT',
+      electronics: 'EXCELLENT',
+      airConditioning: 'EXCELLENT',
+      overall: 'EXCELLENT'
+    },
+    mechanical: {
+      engine: 'EXCELLENT',
+      transmission: 'EXCELLENT',
+      brakes: 'EXCELLENT',
+      suspension: 'EXCELLENT',
+      electrical: 'EXCELLENT',
+      overall: 'EXCELLENT'
+    },
+    documentation: {
+      title: 'EXCELLENT',
+      serviceHistory: 'EXCELLENT',
+      accidentHistory: 'EXCELLENT',
+      recalls: 'EXCELLENT',
+      overall: 'EXCELLENT'
+    }
+  },
+  inspectionPhotos: {
+    exterior: [
+      'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&h=600&fit=crop'
+    ],
+    interior: [
+      'https://images.unsplash.com/photo-1544829099-b9a0c47f1ad4?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&h=600&fit=crop'
+    ],
+    engine: [
+      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&h=600&fit=crop'
+    ],
+    undercarriage: [
+      'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&h=600&fit=crop'
+    ],
+    documents: [
+      'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&h=600&fit=crop'
+    ]
+  },
+  issues: {
+    critical: [],
+    major: [],
+    minor: ['Minor scuff on rear bumper']
+  },
+  recommendations: [
+    'Regular maintenance recommended',
+    'Consider ceramic coating for paint protection'
+  ]
 }
 
 export default function AuctionDetailPage({ params }: { params: { id: string } }) {
@@ -117,9 +178,9 @@ export default function AuctionDetailPage({ params }: { params: { id: string } }
   }, [auction.endTime])
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('en-KE', {
       style: 'currency',
-      currency: 'USD',
+      currency: 'KES',
     }).format(amount)
   }
 
@@ -320,7 +381,7 @@ export default function AuctionDetailPage({ params }: { params: { id: string } }
                     Your Bid Amount
                   </label>
                   <div className="relative">
-                    <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">$</span>
+                    <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">KSh</span>
                     <input
                       type="number"
                       value={bidAmount}
@@ -392,6 +453,28 @@ export default function AuctionDetailPage({ params }: { params: { id: string } }
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Vehicle Inspection Report */}
+        <div className="mt-8">
+          <VehicleInspection 
+            vehicle={{
+              id: auction.car.id,
+              make: auction.car.make,
+              model: auction.car.model,
+              year: auction.car.year,
+              vin: auction.car.vin,
+              mileage: auction.car.mileage,
+              condition: auction.car.condition,
+              location: auction.car.location,
+              inspectionDate: auction.authentication.inspectionDate,
+              inspector: auction.authentication.inspector,
+              inspectionReport: auction.inspectionReport,
+              photos: auction.inspectionPhotos,
+              issues: auction.issues,
+              recommendations: auction.recommendations
+            }}
+          />
         </div>
       </div>
     </div>

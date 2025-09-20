@@ -17,7 +17,8 @@ const liveAuctions = [
       condition: 'EXCELLENT',
       color: 'Rosso Corsa',
       fuelType: 'Gasoline',
-      transmission: 'Automatic'
+      transmission: 'Automatic',
+      buyItNowPrice: 42000000
     },
     currentBid: 37050000,
     reservePrice: 39000000,
@@ -40,7 +41,8 @@ const liveAuctions = [
       condition: 'EXCELLENT',
       color: 'Jet Black',
       fuelType: 'Gasoline',
-      transmission: 'PDK'
+      transmission: 'PDK',
+      buyItNowPrice: 30000000
     },
     currentBid: 25350000,
     reservePrice: 28600000,
@@ -153,6 +155,10 @@ export default function AuctionsPage() {
   const [categoryFilter, setCategoryFilter] = useState('ALL')
   const [sortBy, setSortBy] = useState('endTime')
   const [viewMode, setViewMode] = useState('grid') // grid or list
+  const [priceRange, setPriceRange] = useState({ min: '', max: '' })
+  const [yearRange, setYearRange] = useState({ min: '', max: '' })
+  const [mileageRange, setMileageRange] = useState({ min: '', max: '' })
+  const [showAdvancedFilters, setShowAdvancedFilters] = useState(false)
 
   // Filter and search
   useEffect(() => {
@@ -177,6 +183,30 @@ export default function AuctionsPage() {
       filtered = filtered.filter(auction => auction.category === categoryFilter)
     }
 
+    // Price range filter
+    if (priceRange.min) {
+      filtered = filtered.filter(auction => auction.currentBid >= parseFloat(priceRange.min))
+    }
+    if (priceRange.max) {
+      filtered = filtered.filter(auction => auction.currentBid <= parseFloat(priceRange.max))
+    }
+
+    // Year range filter
+    if (yearRange.min) {
+      filtered = filtered.filter(auction => auction.car.year >= parseInt(yearRange.min))
+    }
+    if (yearRange.max) {
+      filtered = filtered.filter(auction => auction.car.year <= parseInt(yearRange.max))
+    }
+
+    // Mileage range filter
+    if (mileageRange.min) {
+      filtered = filtered.filter(auction => auction.car.mileage >= parseInt(mileageRange.min))
+    }
+    if (mileageRange.max) {
+      filtered = filtered.filter(auction => auction.car.mileage <= parseInt(mileageRange.max))
+    }
+
     // Sort
     filtered.sort((a, b) => {
       switch (sortBy) {
@@ -194,12 +224,12 @@ export default function AuctionsPage() {
     })
 
     setFilteredAuctions(filtered)
-  }, [auctions, searchQuery, statusFilter, categoryFilter, sortBy])
+  }, [auctions, searchQuery, statusFilter, categoryFilter, sortBy, priceRange, yearRange, mileageRange])
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('en-KE', {
       style: 'currency',
-      currency: 'USD',
+      currency: 'KES',
     }).format(amount)
   }
 
@@ -246,12 +276,23 @@ export default function AuctionsPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Filters and Search */}
         <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-lg font-semibold text-gray-900">Search & Filters</h3>
+            <button
+              onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
+              className="text-blue-600 hover:text-blue-700 font-medium flex items-center"
+            >
+              <Filter className="h-4 w-4 mr-1" />
+              {showAdvancedFilters ? 'Hide' : 'Show'} Advanced Filters
+            </button>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
               <input
                 type="text"
-                placeholder="Search cars..."
+                placeholder="Search by make, model, VIN, or location..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -310,6 +351,93 @@ export default function AuctionsPage() {
               </button>
             </div>
           </div>
+
+          {/* Advanced Filters */}
+          {showAdvancedFilters && (
+            <div className="mt-6 pt-6 border-t border-gray-200">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {/* Price Range */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Price Range</label>
+                  <div className="grid grid-cols-2 gap-2">
+                    <input
+                      type="number"
+                      placeholder="Min Price"
+                      value={priceRange.min}
+                      onChange={(e) => setPriceRange(prev => ({ ...prev, min: e.target.value }))}
+                      className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                    <input
+                      type="number"
+                      placeholder="Max Price"
+                      value={priceRange.max}
+                      onChange={(e) => setPriceRange(prev => ({ ...prev, max: e.target.value }))}
+                      className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                  </div>
+                </div>
+
+                {/* Year Range */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Year Range</label>
+                  <div className="grid grid-cols-2 gap-2">
+                    <input
+                      type="number"
+                      placeholder="Min Year"
+                      value={yearRange.min}
+                      onChange={(e) => setYearRange(prev => ({ ...prev, min: e.target.value }))}
+                      className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                    <input
+                      type="number"
+                      placeholder="Max Year"
+                      value={yearRange.max}
+                      onChange={(e) => setYearRange(prev => ({ ...prev, max: e.target.value }))}
+                      className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                  </div>
+                </div>
+
+                {/* Mileage Range */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Mileage Range</label>
+                  <div className="grid grid-cols-2 gap-2">
+                    <input
+                      type="number"
+                      placeholder="Min Mileage"
+                      value={mileageRange.min}
+                      onChange={(e) => setMileageRange(prev => ({ ...prev, min: e.target.value }))}
+                      className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                    <input
+                      type="number"
+                      placeholder="Max Mileage"
+                      value={mileageRange.max}
+                      onChange={(e) => setMileageRange(prev => ({ ...prev, max: e.target.value }))}
+                      className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Clear Filters Button */}
+              <div className="mt-4 flex justify-end">
+                <button
+                  onClick={() => {
+                    setSearchQuery('')
+                    setStatusFilter('ALL')
+                    setCategoryFilter('ALL')
+                    setPriceRange({ min: '', max: '' })
+                    setYearRange({ min: '', max: '' })
+                    setMileageRange({ min: '', max: '' })
+                  }}
+                  className="text-gray-600 hover:text-gray-800 font-medium"
+                >
+                  Clear All Filters
+                </button>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Results Count */}
@@ -376,6 +504,8 @@ export default function AuctionsPage() {
                   {auction.car.mileage.toLocaleString()} miles
                   <span className="mx-2">•</span>
                   <span className="text-xs bg-gray-100 px-2 py-1 rounded">{auction.car.condition}</span>
+                  <span className="mx-2">•</span>
+                  <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">{auction.car.fuelType}</span>
                 </div>
 
                 <div className="space-y-3">
@@ -392,6 +522,15 @@ export default function AuctionsPage() {
                       {formatCurrency(auction.reservePrice)}
                     </span>
                   </div>
+
+                  {auction.car.buyItNowPrice && (
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-500">Buy It Now</span>
+                      <span className="text-sm font-semibold text-green-600">
+                        {formatCurrency(auction.car.buyItNowPrice)}
+                      </span>
+                    </div>
+                  )}
 
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-gray-500">Bids</span>
@@ -410,6 +549,12 @@ export default function AuctionsPage() {
                       <Gavel className="h-4 w-4 mr-2 inline" />
                       {auction.status === 'ENDED' ? 'Auction Ended' : 'Place Bid'}
                     </button>
+                    {auction.car.buyItNowPrice && auction.status !== 'ENDED' && (
+                      <button className="flex-1 py-2 px-4 rounded-lg font-semibold bg-green-600 text-white hover:bg-green-700 transition-colors">
+                        <Zap className="h-4 w-4 mr-2 inline" />
+                        Buy It Now
+                      </button>
+                    )}
                     <button className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
                       <Star className={`h-4 w-4 ${auction.isWatched ? 'text-yellow-400 fill-current' : 'text-gray-400'}`} />
                     </button>

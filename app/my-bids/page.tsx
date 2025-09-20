@@ -118,7 +118,7 @@ export default function MyBidsPage() {
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
-      currency: 'USD',
+      currency: 'KES',
     }).format(amount)
   }
 
