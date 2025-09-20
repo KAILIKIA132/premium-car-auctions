@@ -27,6 +27,7 @@ import { VehicleInspection } from '@/components/auctions/vehicle-inspection'
 const mockAuction = {
   id: '1',
   car: {
+    id: 'car-1',
     make: 'Ferrari',
     model: '488 GTB',
     year: 2019,
