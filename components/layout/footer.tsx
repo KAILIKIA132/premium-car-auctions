@@ -85,7 +85,7 @@ export function Footer() {
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-gray-400" />
-                <span className="text-gray-400 text-sm">info@premiumauctions.com.ke</span>
+                <span className="text-gray-400 text-sm">info@premiumauctions.co.ke</span>
               </div>
             </div>
           </div>
