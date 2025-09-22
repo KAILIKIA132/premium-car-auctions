@@ -225,7 +225,7 @@ export default function VehicleDetailPage({ params }: { params: { id: string } }
               </div>
               <div className="mt-4 flex items-center justify-between text-sm text-gray-600">
                 <a href="/cars" className="text-blue-600 hover:text-blue-800">Back to results</a>
-                <a href="#" className="text-blue-600 hover:text-blue-800">Next ></a>
+                <a href="#" className="text-blue-600 hover:text-blue-800">Next &gt;</a>
               </div>
               </div>
 
