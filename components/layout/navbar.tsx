@@ -11,7 +11,9 @@ import {
   Bell,
   Settings,
   LogOut,
-  Plus
+  Plus,
+  ChevronDown,
+  Phone
 } from 'lucide-react'
 import { NotificationCenter } from '@/components/notifications/notification-center'
 import { useAuth } from '@/contexts/auth-context'
@@ -21,103 +23,155 @@ export function Navbar() {
   const { user, logout, isAuthenticated } = useAuth()
 
   return (
-    <nav className="bg-white shadow-lg sticky top-0 z-50">
+    <>
+      {/* Top Blue Header Bar - Salvage Reseller Style */}
+      <div className="sr-header-blue text-white py-3">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          {/* Logo */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-6">
           <div className="flex items-center">
-            <Link href="/" className="flex items-center space-x-2">
-              <Car className="h-8 w-8 text-primary" />
-              <span className="text-xl font-bold gradient-text">Premium Auctions</span>
-            </Link>
+                <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mr-4">
+                  <span className="text-blue-600 font-bold text-lg">PA</span>
+                </div>
+                <div>
+                  <div className="font-bold text-xl">PREMIUM AUCTIONS</div>
+                  <div className="text-sm text-blue-100">AN INNOVATIVE PLATFORM</div>
+                </div>
+              </div>
+              <div className="hidden lg:block border-l border-blue-400 pl-6">
+                <div className="bg-yellow-400 text-black px-3 py-1 rounded text-sm font-bold">
+                  5th YEAR ANNIVERSARY
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center space-x-6">
+              <div className="bg-yellow-400 text-black px-4 py-2 rounded-lg text-sm font-bold">
+                5th YEAR ANNIVERSARY
+              </div>
+              <div className="text-right">
+                <div className="text-lg font-semibold flex items-center">
+                  <Phone className="h-4 w-4 mr-2" />
+                  +254-700-000-000
           </div>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            <Link href="/auctions" className="text-gray-700 hover:text-primary transition-colors">
-              Live Auctions
-            </Link>
-            <Link href="/cars" className="text-gray-700 hover:text-primary transition-colors">
-              Browse Cars
-            </Link>
-            <Link href="/sell" className="text-gray-700 hover:text-primary transition-colors">
-              Sell Your Car
-            </Link>
-            <Link href="/about" className="text-gray-700 hover:text-primary transition-colors">
-              About
-            </Link>
+                <div className="text-xs text-blue-100">(We Speak Swahili)</div>
           </div>
-
-          {/* Search Bar */}
-          <div className="hidden md:flex items-center flex-1 max-w-lg mx-8">
-            <div className="relative w-full">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-              <input
-                type="text"
-                placeholder="Search cars, make, model..."
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-              />
+            </div>
+          </div>
             </div>
           </div>
 
-          {/* User Menu */}
-          <div className="hidden md:flex items-center space-x-4">
+      {/* Green Navigation Bar - Enhanced Dropdown Style */}
+      <nav className="sr-nav-green text-white relative sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between py-4">
+            <nav className="hidden md:flex items-center space-x-8">
+              <div className="relative group">
+                <a href="/cars" className="hover:text-green-200 transition-colors flex items-center">
+                  Vehicle Search
+                  <ChevronDown className="ml-1 h-4 w-4" />
+                </a>
+                <div className="dropdown-menu">
+                  <div className="py-2">
+                    <Link href="/cars?type=luxury" className="block px-4 py-2 text-gray-700 hover:bg-green-50">Luxury Cars</Link>
+                    <Link href="/cars?type=sports" className="block px-4 py-2 text-gray-700 hover:bg-green-50">Sports Cars</Link>
+                    <Link href="/cars?type=classic" className="block px-4 py-2 text-gray-700 hover:bg-green-50">Classic Cars</Link>
+                    <Link href="/cars?type=suv" className="block px-4 py-2 text-gray-700 hover:bg-green-50">SUVs</Link>
+                  </div>
+                </div>
+              </div>
+              <div className="relative group">
+                <a href="/auctions" className="hover:text-green-200 transition-colors flex items-center">
+                  Live Auctions
+                  <ChevronDown className="ml-1 h-4 w-4" />
+                </a>
+                <div className="dropdown-menu">
+                  <div className="py-2">
+                    <Link href="/auctions?filter=today" className="block px-4 py-2 text-gray-700 hover:bg-green-50">Today's Auctions</Link>
+                    <Link href="/auctions?filter=this-week" className="block px-4 py-2 text-gray-700 hover:bg-green-50">This Week</Link>
+                    <Link href="/auctions?filter=upcoming" className="block px-4 py-2 text-gray-700 hover:bg-green-50">Upcoming Auctions</Link>
+                    <Link href="/auctions?filter=live" className="block px-4 py-2 text-gray-700 hover:bg-green-50">Live Now</Link>
+                  </div>
+                </div>
+              </div>
+              <div className="relative group">
+                <a href="/contact" className="hover:text-green-200 transition-colors flex items-center">
+                  Support
+                  <ChevronDown className="ml-1 h-4 w-4" />
+                </a>
+                <div className="dropdown-menu">
+                  <div className="py-2">
+                    <Link href="/faq" className="block px-4 py-2 text-gray-700 hover:bg-green-50">Help Center</Link>
+                    <Link href="/contact" className="block px-4 py-2 text-gray-700 hover:bg-green-50">Contact Us</Link>
+                    <Link href="/how-it-works" className="block px-4 py-2 text-gray-700 hover:bg-green-50">How It Works</Link>
+                    <Link href="/about" className="block px-4 py-2 text-gray-700 hover:bg-green-50">About Us</Link>
+                  </div>
+                </div>
+              </div>
+              <div className="relative group">
+                <a href="/sell" className="hover:text-green-200 transition-colors flex items-center">
+                  Services
+                  <ChevronDown className="ml-1 h-4 w-4" />
+                </a>
+                <div className="dropdown-menu">
+                  <div className="py-2">
+                    <Link href="/sell" className="block px-4 py-2 text-gray-700 hover:bg-green-50">Sell Your Car</Link>
+                    <Link href="/services/shipping" className="block px-4 py-2 text-gray-700 hover:bg-green-50">Shipping Services</Link>
+                    <Link href="/services/inspection" className="block px-4 py-2 text-gray-700 hover:bg-green-50">Inspection Services</Link>
+                    <Link href="/services/financing" className="block px-4 py-2 text-gray-700 hover:bg-green-50">Financing</Link>
+                  </div>
+                </div>
+              </div>
+            </nav>
+            <div className="flex items-center space-x-4">
             {isAuthenticated ? (
               <div className="flex items-center space-x-4">
                 <NotificationCenter />
                 <div className="relative group">
-                  <button className="flex items-center space-x-2 px-3 py-2 text-gray-700 hover:text-blue-600 hover:bg-gray-100 rounded-lg transition-colors">
+                    <button className="flex items-center space-x-2 px-3 py-2 text-white hover:text-green-200 transition-colors">
                     <User className="h-5 w-5" />
                     <span>{user?.name}</span>
                   </button>
-                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                    <Link href="/dashboard" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl py-1 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                      <Link href="/dashboard" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-green-50">
                       <Settings className="h-4 w-4 mr-2" />
                       Dashboard
                     </Link>
-                    <Link href="/my-bids" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                      <Link href="/my-bids" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-green-50">
                       <Car className="h-4 w-4 mr-2" />
                       My Bids
                     </Link>
                     <button
                       onClick={logout}
-                      className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-green-50"
                     >
                       <LogOut className="h-4 w-4 mr-2" />
                       Sign Out
                     </button>
                   </div>
                 </div>
-                <Link 
-                  href="/sell"
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors"
-                >
-                  <Plus className="h-4 w-4" />
-                  <span>List Car</span>
-                </Link>
               </div>
             ) : (
-              <div className="flex items-center space-x-2">
+                <>
                 <Link 
                   href="/auth/signin"
-                  className="px-4 py-2 text-gray-700 hover:text-blue-600 hover:bg-gray-100 rounded-lg transition-colors"
+                    className="bg-white text-green-600 px-6 py-2 rounded-lg font-semibold hover:bg-green-50 transition-colors"
                 >
                   Sign In
                 </Link>
                 <Link 
                   href="/auth/signup"
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
+                    className="bg-red-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-red-700 transition-colors"
                 >
-                  Get Started
+                    Register Free
                 </Link>
-              </div>
+                </>
             )}
           </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center">
             <button
-              className="p-2 text-gray-400 hover:text-gray-600"
+                className="p-2 text-white hover:text-green-200"
               onClick={() => setIsOpen(!isOpen)}
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -128,41 +182,41 @@ export function Navbar() {
         {/* Mobile Navigation */}
         {isOpen && (
           <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t">
+              <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-green-700 border-t border-green-500">
               <Link
                 href="/auctions"
-                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary"
+                  className="block px-3 py-2 text-base font-medium text-white hover:text-green-200"
                 onClick={() => setIsOpen(false)}
               >
                 Live Auctions
               </Link>
               <Link
                 href="/cars"
-                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary"
+                  className="block px-3 py-2 text-base font-medium text-white hover:text-green-200"
                 onClick={() => setIsOpen(false)}
               >
                 Browse Cars
               </Link>
               <Link
                 href="/sell"
-                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary"
+                  className="block px-3 py-2 text-base font-medium text-white hover:text-green-200"
                 onClick={() => setIsOpen(false)}
               >
                 Sell Your Car
               </Link>
               <Link
                 href="/about"
-                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary"
+                  className="block px-3 py-2 text-base font-medium text-white hover:text-green-200"
                 onClick={() => setIsOpen(false)}
               >
                 About
               </Link>
               {isAuthenticated ? (
-                <div className="pt-4 border-t">
-                  <p className="px-3 py-2 text-sm text-gray-500">Signed in as {user?.name}</p>
+                  <div className="pt-4 border-t border-green-500">
+                    <p className="px-3 py-2 text-sm text-green-100">Signed in as {user?.name}</p>
                   <Link
                     href="/dashboard"
-                    className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary"
+                      className="block px-3 py-2 text-base font-medium text-white hover:text-green-200"
                     onClick={() => setIsOpen(false)}
                   >
                     Dashboard
@@ -172,26 +226,26 @@ export function Navbar() {
                       logout()
                       setIsOpen(false)
                     }}
-                    className="block w-full text-left px-3 py-2 text-base font-medium text-gray-700 hover:text-primary"
+                      className="block w-full text-left px-3 py-2 text-base font-medium text-white hover:text-green-200"
                   >
                     Sign Out
                   </button>
                 </div>
               ) : (
-                <div className="pt-4 border-t space-y-2">
+                  <div className="pt-4 border-t border-green-500 space-y-2">
                   <Link 
                     href="/auth/signin" 
                     onClick={() => setIsOpen(false)}
-                    className="w-full px-3 py-2 text-left text-gray-700 hover:text-blue-600 hover:bg-gray-100 rounded-lg transition-colors block"
+                      className="w-full px-3 py-2 text-left text-white hover:text-green-200 rounded-lg transition-colors block"
                   >
                     Sign In
                   </Link>
                   <Link 
                     href="/auth/signup" 
                     onClick={() => setIsOpen(false)}
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg transition-colors block"
+                      className="w-full bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-lg transition-colors block"
                   >
-                    Get Started
+                      Register Free
                   </Link>
                 </div>
               )}
@@ -200,5 +254,6 @@ export function Navbar() {
         )}
       </div>
     </nav>
+    </>
   )
 }

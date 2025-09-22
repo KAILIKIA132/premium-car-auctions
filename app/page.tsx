@@ -3,6 +3,79 @@
 export default function HomePage() {
   return (
     <div className="min-h-screen">
+      {/* Search Bar Section - Salvage Reseller Style */}
+      <section className="bg-gray-100 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8">
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Find Your Dream Car
+            </h1>
+            <p className="text-lg text-gray-600">Search by vehicle description, VIN or Lot#</p>
+          </div>
+          <div className="max-w-4xl mx-auto">
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Search by vehicle description, VIN or Lot#"
+                className="search-bar"
+              />
+              <button 
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                aria-label="Search"
+              >
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Filter Buttons */}
+      <section className="bg-white py-6 border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-wrap gap-2">
+            {[
+              { name: 'Cars', href: '/cars?type=sedans' },
+              { name: 'Trucks', href: '/cars?type=trucks' },
+              { name: 'Motorcycles', href: '/cars?type=motorcycles' },
+              { name: 'Boats', href: '/cars?type=boats' },
+              { name: 'RVs', href: '/cars?type=rvs' },
+              { name: 'All', href: '/cars' },
+              { name: 'Luxury Cars', href: '/cars?type=luxury' },
+              { name: 'Sports Cars', href: '/cars?type=sports' },
+              { name: 'Classic Cars', href: '/cars?type=classic' },
+              { name: 'SUVs', href: '/cars?type=suvs' },
+              { name: 'Buy Now', href: '/cars?filter=buy-now' },
+              { name: 'No Damage', href: '/cars?filter=no-damage' },
+              { name: 'Parts Only', href: '/cars?filter=parts-only' },
+              { name: '4X4', href: '/cars?filter=4x4' },
+              { name: 'Clean Title', href: '/cars?filter=clean-title' },
+              { name: 'Run and Drive', href: '/cars?filter=run-drive' },
+              { name: 'Flood Damaged', href: '/cars?filter=flood' },
+              { name: 'Hail Damage', href: '/cars?filter=hail' },
+              { name: 'Vandalism', href: '/cars?filter=vandalism' },
+              { name: 'Muscle Cars', href: '/cars?type=muscle' },
+              { name: 'Hybrid Vehicles', href: '/cars?type=hybrid' },
+              { name: 'Rental Vehicles', href: '/cars?filter=rental' },
+              { name: 'Pure Sale', href: '/cars?filter=pure-sale' },
+              { name: 'New Arrivals', href: '/cars?filter=new-arrivals' },
+              { name: 'Selling Today', href: '/cars?filter=selling-today' },
+              { name: 'No Bids Yet', href: '/cars?filter=no-bids' },
+              { name: 'Lots with Bids', href: '/cars?filter=with-bids' }
+            ].map((filter, index) => (
+              <a
+                key={index}
+                href={filter.href}
+                className="filter-btn"
+              >
+                {filter.name}
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-purple-900 text-white overflow-hidden">
@@ -19,33 +92,16 @@ export default function HomePage() {
               From luxury classics to modern supercars, find your dream car at our exclusive auctions.
             </p>
 
-            {/* Search Bar */}
-            <div className="max-w-2xl mx-auto mb-12">
-              <div className="relative">
-                <svg className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-                <input
-                  type="text"
-                  placeholder="Search for your dream car..."
-                  className="w-full pl-12 pr-4 py-4 text-lg bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder:text-gray-300 focus:ring-2 focus:ring-white/50 rounded-lg"
-                />
-                <button className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white text-blue-900 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
-                  Search
-                </button>
-              </div>
-            </div>
-
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-              <button className="bg-white text-blue-900 hover:bg-gray-100 px-8 py-4 text-lg font-semibold rounded-lg transition-colors flex items-center justify-center">
+              <button className="btn-primary px-8 py-4 text-lg font-semibold flex items-center justify-center">
                 <svg className="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l2.414 2.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1a1 1 0 001-1v-4a1 1 0 00-1-1h-1a1 1 0 00-1 1v4zm0 0V9a1 1 0 011-1h2a1 1 0 011 1v2.5" />
                 </svg>
                 Browse Auctions
               </button>
-              <button className="border border-white text-white hover:bg-white hover:text-blue-900 px-8 py-4 text-lg font-semibold rounded-lg transition-colors flex items-center justify-center">
+              <button className="btn-outline px-8 py-4 text-lg font-semibold flex items-center justify-center">
                 <svg className="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
@@ -61,7 +117,7 @@ export default function HomePage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                   </svg>
                 </div>
-                <h3 className="text-2xl font-bold mb-2">500+</h3>
+                <h3 className="text-2xl font-bold mb-2">2,500+</h3>
                 <p className="text-blue-100">Premium Cars Sold</p>
               </div>
               <div className="text-center">
@@ -70,8 +126,8 @@ export default function HomePage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                   </svg>
                 </div>
-                <h3 className="text-2xl font-bold mb-2">100%</h3>
-                <p className="text-blue-100">Secure Transactions</p>
+                <h3 className="text-2xl font-bold mb-2">98%</h3>
+                <p className="text-blue-100">Customer Satisfaction</p>
               </div>
               <div className="text-center">
                 <div className="bg-white/10 backdrop-blur-sm rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
@@ -80,8 +136,8 @@ export default function HomePage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l2.414 2.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1a1 1 0 001-1v-4a1 1 0 00-1-1h-1a1 1 0 00-1 1v4zm0 0V9a1 1 0 011-1h2a1 1 0 011 1v2.5" />
                   </svg>
                 </div>
-                <h3 className="text-2xl font-bold mb-2">50+</h3>
-                <p className="text-blue-100">Countries Served</p>
+                <h3 className="text-2xl font-bold mb-2">47</h3>
+                <p className="text-blue-100">Counties Served</p>
               </div>
             </div>
           </div>
@@ -106,7 +162,7 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Auction Card 1 */}
-            <div className="group hover:shadow-xl transition-all duration-300 overflow-hidden bg-white rounded-lg border border-gray-200">
+            <div className="auction-card group overflow-hidden">
               <div className="relative">
                 <img
                   src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&h=600&fit=crop"
@@ -176,7 +232,7 @@ export default function HomePage() {
             </div>
 
             {/* Auction Card 2 */}
-            <div className="group hover:shadow-xl transition-all duration-300 overflow-hidden bg-white rounded-lg border border-gray-200">
+            <div className="auction-card group overflow-hidden">
               <div className="relative">
                 <img
                   src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&h=600&fit=crop"
@@ -246,7 +302,7 @@ export default function HomePage() {
             </div>
 
             {/* Auction Card 3 */}
-            <div className="group hover:shadow-xl transition-all duration-300 overflow-hidden bg-white rounded-lg border border-gray-200">
+            <div className="auction-card group overflow-hidden">
               <div className="relative">
                 <img
                   src="https://images.unsplash.com/photo-1544829099-b9a0c47f1ad4?w=800&h=600&fit=crop"
@@ -316,7 +372,7 @@ export default function HomePage() {
             </div>
 
             {/* Auction Card 4 */}
-            <div className="group hover:shadow-xl transition-all duration-300 overflow-hidden bg-white rounded-lg border border-gray-200">
+            <div className="auction-card group overflow-hidden">
               <div className="relative">
                 <img
                   src="https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&h=600&fit=crop"
@@ -388,7 +444,7 @@ export default function HomePage() {
           </div>
 
           <div className="text-center mt-12">
-            <button className="border border-blue-600 text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-600 hover:text-white transition-colors">
+            <button className="btn-outline text-blue-600 border-blue-600 hover:bg-blue-600 hover:text-white px-8 py-3">
               View All Auctions
             </button>
           </div>
@@ -559,21 +615,39 @@ export default function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Ready to Start Your Journey?
-          </h2>
-          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            Join thousands of car enthusiasts and discover your next dream vehicle today.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
-              Browse Auctions
-            </button>
-            <button className="border border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors">
-              List Your Car
-            </button>
+      <section className="py-20 bg-gradient-to-r from-blue-600 via-green-600 to-blue-800 text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-12 border border-white/20">
+            <h2 className="text-4xl md:text-6xl font-bold mb-6">
+              Ready to Start Your Journey?
+            </h2>
+            <p className="text-xl md:text-2xl text-blue-100 mb-10 max-w-4xl mx-auto leading-relaxed">
+              Join thousands of car enthusiasts who trust Premium Auctions for their luxury vehicle needs. 
+              Whether you're buying your dream car or selling a cherished vehicle, we're here to make it happen.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <button className="btn-primary px-10 py-4 text-lg font-bold hover:scale-105 shadow-xl">
+                Browse Auctions
+              </button>
+              <button className="btn-outline px-10 py-4 text-lg font-bold hover:scale-105 shadow-xl">
+                List Your Car
+              </button>
+            </div>
+            <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+              <div>
+                <div className="text-3xl font-bold mb-2">2,500+</div>
+                <div className="text-blue-100">Cars Sold</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold mb-2">15,000+</div>
+                <div className="text-blue-100">Happy Customers</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold mb-2">98%</div>
+                <div className="text-blue-100">Satisfaction Rate</div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

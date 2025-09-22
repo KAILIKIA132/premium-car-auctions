@@ -266,9 +266,28 @@ export default function AuctionsPage() {
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               Live Auctions
             </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
               Bid on premium vehicles from around the world. Real-time auctions with secure bidding.
             </p>
+            
+            {/* Quick Navigation */}
+            <div className="flex flex-wrap justify-center gap-4">
+              <a href="/auctions/todays" className="btn-primary px-6 py-2 text-sm">
+                Today's Auctions
+              </a>
+              <a href="/auctions/sales" className="btn-secondary px-6 py-2 text-sm">
+                Sales List
+              </a>
+              <a href="/auctions/calendar" className="btn-outline px-6 py-2 text-sm">
+                Sales Calendar
+              </a>
+              <a href="/auctions/locations" className="btn-outline px-6 py-2 text-sm">
+                Auction Locations
+              </a>
+              <a href="/auctions/join" className="btn-cta px-6 py-2 text-sm">
+                Join Auctions
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -303,6 +322,7 @@ export default function AuctionsPage() {
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
               className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              aria-label="Filter by status"
             >
               <option value="ALL">All Status</option>
               <option value="LIVE">Live</option>
@@ -314,6 +334,7 @@ export default function AuctionsPage() {
               value={categoryFilter}
               onChange={(e) => setCategoryFilter(e.target.value)}
               className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              aria-label="Filter by category"
             >
               <option value="ALL">All Categories</option>
               <option value="Luxury">Luxury</option>
@@ -325,6 +346,7 @@ export default function AuctionsPage() {
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
               className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              aria-label="Sort by"
             >
               <option value="endTime">End Time</option>
               <option value="currentBid">Current Bid</option>
@@ -336,6 +358,7 @@ export default function AuctionsPage() {
               <button
                 onClick={() => setViewMode('grid')}
                 className={`p-2 rounded-lg ${viewMode === 'grid' ? 'bg-blue-100 text-blue-600' : 'text-gray-400 hover:text-gray-600'}`}
+                aria-label="Grid view"
               >
                 <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
@@ -344,6 +367,7 @@ export default function AuctionsPage() {
               <button
                 onClick={() => setViewMode('list')}
                 className={`p-2 rounded-lg ${viewMode === 'list' ? 'bg-blue-100 text-blue-600' : 'text-gray-400 hover:text-gray-600'}`}
+                aria-label="List view"
               >
                 <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
@@ -555,7 +579,7 @@ export default function AuctionsPage() {
                         Buy It Now
                       </button>
                     )}
-                    <button className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                    <button className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors" aria-label="Add to watchlist">
                       <Star className={`h-4 w-4 ${auction.isWatched ? 'text-yellow-400 fill-current' : 'text-gray-400'}`} />
                     </button>
                   </div>
