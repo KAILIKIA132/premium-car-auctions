@@ -1,386 +1,573 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Badge } from '@/components/ui/badge'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { MapPin, Car, Calendar, Fuel, Gauge, Users, Search, Filter } from 'lucide-react'
-import { formatCurrency } from '@/lib/utils'
-import Image from 'next/image'
-import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
+import { 
+  Filter, 
+  Search, 
+  ChevronDown, 
+  ChevronUp, 
+  MapPin, 
+  Calendar, 
+  Clock, 
+  Gavel, 
+  Eye,
+  Star,
+  CheckCircle,
+  X,
+  Save,
+  Printer
+} from 'lucide-react'
 
-// Mock data for cars
-const mockCars = [
+const vehicleData = [
   {
-    id: '1',
-    make: 'Ferrari',
-    model: '488 GTB',
-    year: 2019,
-    image: 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&h=600&fit=crop',
-    mileage: 8500,
-    location: 'Nairobi',
-    condition: 'EXCELLENT',
-    price: 37050000,
-    features: ['V8 Engine', 'Carbon Fiber', 'Racing Seats', 'Navigation'],
-    fuelType: 'Gasoline',
-    transmission: 'Automatic',
-    color: 'Rosso Corsa',
-    auctionEnd: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000)
-  },
-  {
-    id: '2',
-    make: 'Porsche',
-    model: '911 Turbo S',
-    year: 2021,
-    image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&h=600&fit=crop',
-    mileage: 3200,
-    location: 'Mombasa',
-    condition: 'EXCELLENT',
-    price: 25350000,
-    features: ['AWD', 'Sport Chrono', 'BOSE Audio', 'Heated Seats'],
-    fuelType: 'Gasoline',
-    transmission: 'PDK',
-    color: 'Jet Black',
-    auctionEnd: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000)
-  },
-  {
-    id: '3',
-    make: 'Lamborghini',
-    model: 'Huracán EVO',
-    year: 2020,
-    image: 'https://images.unsplash.com/photo-1544829099-b9a0c47f1ad4?w=800&h=600&fit=crop',
-    mileage: 12000,
-    location: 'Kisumu',
-    condition: 'GOOD',
-    price: 31850000,
-    features: ['V10 Engine', 'Carbon Ceramic Brakes', 'Alcantara Interior', 'Lift System'],
-    fuelType: 'Gasoline',
-    transmission: 'Automatic',
-    color: 'Arancio Borealis',
-    auctionEnd: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000)
-  },
-  {
-    id: '4',
-    make: 'McLaren',
-    model: '720S',
+    id: '39141***',
+    make: 'Hyundai',
+    model: 'Elantra SE',
     year: 2018,
-    image: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&h=600&fit=crop',
-    mileage: 18000,
-    location: 'Nakuru',
-    condition: 'EXCELLENT',
-    price: 24050000,
-    features: ['Carbon Fiber Monocage', 'Active Aero', 'Racing Seats', 'Track Mode'],
-    fuelType: 'Gasoline',
-    transmission: 'Automatic',
-    color: 'Volcano Orange',
-    auctionEnd: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000)
+    image: 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=400&h=300&fit=crop',
+    location: 'Wichita, KS',
+    saleStatus: 'Pure Sale',
+    saleDate: '09/22/2025',
+    odometer: 108756,
+    odometerStatus: 'Actual',
+    actualCashValue: 9859,
+    title: 'MA ST R',
+    damage: 'Front end',
+    keysAvailable: true,
+    currentBid: 1450,
+    currency: 'USD',
+    isLive: true
   },
   {
-    id: '5',
-    make: 'BMW',
-    model: 'M8 Competition',
-    year: 2022,
-    image: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&h=600&fit=crop',
-    mileage: 2500,
-    location: 'Eldoret',
-    condition: 'EXCELLENT',
-    price: 16250000,
-    features: ['xDrive AWD', 'M Sport Package', 'Harman Kardon', 'Heated Seats'],
-    fuelType: 'Gasoline',
-    transmission: 'Automatic',
-    color: 'Sapphire Black',
-    auctionEnd: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+    id: '39410***',
+    make: 'Chevrolet',
+    model: 'Sonic LS',
+    year: 2013,
+    image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=400&h=300&fit=crop',
+    location: 'Woodburn, OR',
+    saleStatus: 'On Minimum Bid',
+    saleDate: '09/22/2025',
+    odometer: 97172,
+    odometerStatus: 'Actual',
+    actualCashValue: 4996,
+    title: 'OR LS R',
+    damage: 'Front end',
+    keysAvailable: false,
+    currentBid: 100,
+    currency: 'USD',
+    isLive: false
   },
   {
-    id: '6',
-    make: 'Audi',
-    model: 'R8 V10 Plus',
+    id: '39567***',
+    make: 'Toyota',
+    model: 'Camry LE',
+    year: 2019,
+    image: 'https://images.unsplash.com/photo-1544829099-b9a0c47f1ad4?w=400&h=300&fit=crop',
+    location: 'Nairobi, Kenya',
+    saleStatus: 'Live Auction',
+    saleDate: '09/23/2025',
+    odometer: 45678,
+    odometerStatus: 'Actual',
+    actualCashValue: 18500,
+    title: 'KE ST R',
+    damage: 'Side',
+    keysAvailable: true,
+    currentBid: 8500,
+    currency: 'KES',
+    isLive: true
+  },
+  {
+    id: '39678***',
+    make: 'Ford',
+    model: 'F-150 XLT',
     year: 2020,
-    image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&h=600&fit=crop',
-    mileage: 15000,
-    location: 'Ingolstadt',
-    condition: 'GOOD',
-    price: 165000,
-    features: ['V10 Engine', 'Quattro AWD', 'Carbon Fiber', 'Bang & Olufsen'],
-    fuelType: 'Gasoline',
-    transmission: 'Automatic',
-    color: 'Daytona Gray',
-    auctionEnd: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000)
+    image: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=400&h=300&fit=crop',
+    location: 'Mombasa, Kenya',
+    saleStatus: 'Upcoming',
+    saleDate: '09/24/2025',
+    odometer: 23456,
+    odometerStatus: 'Actual',
+    actualCashValue: 32000,
+    title: 'KE ST R',
+    damage: 'Hail',
+    keysAvailable: true,
+    currentBid: 0,
+    currency: 'KES',
+    isLive: false
   }
 ]
 
+const featuredFilters = [
+  'Copart Go', 'Copart Select', 'Salvage Cars', 'Salvage SUVs', 'Salvage Motorcycles', 
+  'Salvage Trucks', 'Buy Now', 'Cars With No Damage', 'Vehicles for Parts', '4 X 4', 
+  'Clean Title', 'Run and Drive', 'Flood Damaged', 'Burn Engine', 'Hail Damage', 
+  'Vandalism', 'Classic Cars', 'Selling Today', 'No Bids Yet', 'Lots with Bids', 
+  'Muscle Cars', 'Hybrid Vehicles', 'Rental Vehicles', 'Pure Sale', 'New arrivals'
+]
+
 export default function CarsPage() {
-  const [cars, setCars] = useState(mockCars)
-  const [filteredCars, setFilteredCars] = useState(mockCars)
-  const [searchQuery, setSearchQuery] = useState('')
-  const [makeFilter, setMakeFilter] = useState('ALL')
-  const [conditionFilter, setConditionFilter] = useState('ALL')
-  const [priceRange, setPriceRange] = useState('ALL')
-  const [sortBy, setSortBy] = useState('price')
+  const searchParams = useSearchParams()
+  const [vehicles, setVehicles] = useState(vehicleData)
+  const [filteredVehicles, setFilteredVehicles] = useState(vehicleData)
+  const [showFilters, setShowFilters] = useState(true)
+  const [sortBy, setSortBy] = useState('saleDate')
+  const [entriesPerPage, setEntriesPerPage] = useState(25)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [activeFilters, setActiveFilters] = useState<string[]>([])
 
-  // Get unique makes for filter
-  const makes = ['ALL', ...Array.from(new Set(cars.map(car => car.make)))]
+  const vehicleType = searchParams.get('type') || 'all'
+  const filterType = searchParams.get('filter') || 'all'
 
-  // Filter and search
   useEffect(() => {
-    let filtered = cars
+    let filtered = [...vehicles]
 
-    // Search filter
-    if (searchQuery) {
-      filtered = filtered.filter(car =>
-        car.make.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        car.model.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        car.location.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    }
-
-    // Make filter
-    if (makeFilter !== 'ALL') {
-      filtered = filtered.filter(car => car.make === makeFilter)
-    }
-
-    // Condition filter
-    if (conditionFilter !== 'ALL') {
-      filtered = filtered.filter(car => car.condition === conditionFilter)
-    }
-
-    // Price range filter
-    if (priceRange !== 'ALL') {
-      const [min, max] = priceRange.split('-').map(Number)
-      if (max) {
-        filtered = filtered.filter(car => car.price >= min && car.price <= max)
-      } else {
-        filtered = filtered.filter(car => car.price >= min)
+    // Filter by vehicle type
+    if (vehicleType !== 'all') {
+      switch (vehicleType) {
+        case 'sedans':
+          filtered = filtered.filter(v => ['Elantra', 'Sonic', 'Camry'].includes(v.model.split(' ')[0]))
+          break
+        case 'trucks':
+          filtered = filtered.filter(v => v.model.includes('F-150'))
+          break
+        case 'motorcycles':
+          filtered = [] // No motorcycles in current data
+          break
+        case 'boats':
+          filtered = [] // No boats in current data
+          break
+        case 'rvs':
+          filtered = [] // No RVs in current data
+          break
+        case 'luxury':
+          filtered = filtered.filter(v => v.actualCashValue > 20000)
+          break
+        case 'sports':
+          filtered = filtered.filter(v => v.actualCashValue > 15000)
+          break
+        case 'classic':
+          filtered = filtered.filter(v => v.year < 2015)
+          break
+        case 'suvs':
+          filtered = filtered.filter(v => v.model.includes('SUV'))
+          break
       }
     }
 
-    // Sort
-    filtered.sort((a, b) => {
-      switch (sortBy) {
-        case 'price':
-          return a.price - b.price
-        case 'year':
-          return b.year - a.year
-        case 'mileage':
-          return a.mileage - b.mileage
-        case 'make':
-          return a.make.localeCompare(b.make)
-        default:
-          return 0
+    // Filter by additional filters
+    if (filterType !== 'all') {
+      switch (filterType) {
+        case 'buy-now':
+          filtered = filtered.filter(v => v.saleStatus === 'Buy Now')
+          break
+        case 'no-damage':
+          filtered = filtered.filter(v => v.damage === 'No Damage')
+          break
+        case 'parts-only':
+          filtered = filtered.filter(v => v.saleStatus === 'Parts Only')
+          break
+        case '4x4':
+          filtered = filtered.filter(v => v.model.includes('4X4') || v.model.includes('4WD'))
+          break
+        case 'clean-title':
+          filtered = filtered.filter(v => v.title.includes('Clean'))
+          break
+        case 'run-drive':
+          filtered = filtered.filter(v => v.saleStatus === 'Run and Drive')
+          break
+        case 'flood':
+          filtered = filtered.filter(v => v.damage === 'Flood')
+          break
+        case 'hail':
+          filtered = filtered.filter(v => v.damage === 'Hail')
+          break
+        case 'vandalism':
+          filtered = filtered.filter(v => v.damage === 'Vandalism')
+          break
+        case 'muscle':
+          filtered = filtered.filter(v => v.make === 'Ford' && v.model.includes('Mustang'))
+          break
+        case 'hybrid':
+          filtered = filtered.filter(v => v.model.includes('Hybrid'))
+          break
+        case 'rental':
+          filtered = filtered.filter(v => v.saleStatus === 'Rental')
+          break
+        case 'pure-sale':
+          filtered = filtered.filter(v => v.saleStatus === 'Pure Sale')
+          break
+        case 'new-arrivals':
+          filtered = filtered.filter(v => v.year >= 2020)
+          break
+        case 'selling-today':
+          filtered = filtered.filter(v => v.saleDate === '09/22/2025')
+          break
+        case 'no-bids':
+          filtered = filtered.filter(v => v.currentBid === 0)
+          break
+        case 'with-bids':
+          filtered = filtered.filter(v => v.currentBid > 0)
+          break
       }
-    })
+    }
 
-    setFilteredCars(filtered)
-  }, [cars, searchQuery, makeFilter, conditionFilter, priceRange, sortBy])
+    setFilteredVehicles(filtered)
+  }, [vehicleType, filterType])
+
+  const formatCurrency = (amount: number, currency: string) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: currency,
+    }).format(amount)
+  }
+
+  const getPageTitle = () => {
+    if (vehicleType === 'sedans') return 'Used Salvage Sedans for Sale'
+    if (vehicleType === 'trucks') return 'Used Salvage Trucks for Sale'
+    if (vehicleType === 'motorcycles') return 'Used Salvage Motorcycles for Sale'
+    if (vehicleType === 'boats') return 'Used Salvage Boats for Sale'
+    if (vehicleType === 'rvs') return 'Used Salvage RVs for Sale'
+    if (vehicleType === 'luxury') return 'Used Luxury Cars for Sale'
+    if (vehicleType === 'sports') return 'Used Sports Cars for Sale'
+    if (vehicleType === 'classic') return 'Used Classic Cars for Sale'
+    if (vehicleType === 'suvs') return 'Used SUVs for Sale'
+    return 'Used Salvage Cars for Sale'
+  }
+
+  const getBreadcrumbs = () => {
+    const base = ['HOME', 'BUY SALVAGE CARS']
+    if (vehicleType === 'sedans') return [...base, 'SEDANS']
+    if (vehicleType === 'trucks') return [...base, 'TRUCKS']
+    if (vehicleType === 'motorcycles') return [...base, 'MOTORCYCLES']
+    if (vehicleType === 'boats') return [...base, 'BOATS']
+    if (vehicleType === 'rvs') return [...base, 'RVS']
+    return base
+  }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Browse Cars
-          </h1>
-          <p className="text-xl text-gray-600">
-            Discover premium vehicles from around the world
-          </p>
+    <div className="min-h-screen bg-gray-50">
+      {/* Breadcrumbs */}
+      <div className="bg-white border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <nav className="flex items-center space-x-2 text-sm">
+            {getBreadcrumbs().map((crumb, index) => (
+              <div key={index} className="flex items-center">
+                {index > 0 && <span className="text-gray-400 mx-2">></span>}
+                <span className={index === getBreadcrumbs().length - 1 ? 'text-gray-600' : 'text-blue-600 hover:text-blue-800'}>
+                  {crumb}
+                </span>
+              </div>
+            ))}
+          </nav>
         </div>
+      </div>
 
-        {/* Filters */}
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-              <Input
-                placeholder="Search cars..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10"
-              />
-            </div>
-            
-            <Select value={makeFilter} onValueChange={setMakeFilter}>
-              <SelectTrigger>
-                <SelectValue placeholder="Make" />
-              </SelectTrigger>
-              <SelectContent>
-                {makes.map(make => (
-                  <SelectItem key={make} value={make}>{make}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          {/* Left Sidebar - Filters */}
+          <div className="lg:col-span-1">
+            <div className="bg-white rounded-lg shadow-sm p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-lg font-semibold text-gray-900">FILTERS</h3>
+                <button
+                  onClick={() => setShowFilters(!showFilters)}
+                  className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+                >
+                  {showFilters ? '- Hide Filters' : '+ Show Filters'}
+                </button>
+              </div>
 
-            <Select value={conditionFilter} onValueChange={setConditionFilter}>
-              <SelectTrigger>
-                <SelectValue placeholder="Condition" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="ALL">All Conditions</SelectItem>
-                <SelectItem value="EXCELLENT">Excellent</SelectItem>
-                <SelectItem value="GOOD">Good</SelectItem>
-                <SelectItem value="FAIR">Fair</SelectItem>
-                <SelectItem value="POOR">Poor</SelectItem>
-                <SelectItem value="SALVAGE">Salvage</SelectItem>
-              </SelectContent>
-            </Select>
+              {showFilters && (
+                <div className="space-y-6">
+                  {/* Active Filters */}
+                  {activeFilters.length > 0 && (
+                    <div>
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-sm font-medium text-gray-700">Active Filters</span>
+                        <button
+                          onClick={() => setActiveFilters([])}
+                          className="text-blue-600 hover:text-blue-800 text-sm"
+                        >
+                          Clear All
+                        </button>
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        {activeFilters.map((filter, index) => (
+                          <span
+                            key={index}
+                            className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs flex items-center"
+                          >
+                            {filter}
+                            <button
+                              onClick={() => setActiveFilters(prev => prev.filter(f => f !== filter))}
+                              className="ml-1 hover:text-blue-600"
+                            >
+                              <X className="h-3 w-3" />
+                            </button>
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
 
-            <Select value={priceRange} onValueChange={setPriceRange}>
-              <SelectTrigger>
-                <SelectValue placeholder="Price Range" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="ALL">All Prices</SelectItem>
-                <SelectItem value="0-6500000">Under KSh 6.5M</SelectItem>
-                <SelectItem value="6500000-13000000">KSh 6.5M - KSh 13M</SelectItem>
-                <SelectItem value="13000000-26000000">KSh 13M - KSh 26M</SelectItem>
-                <SelectItem value="26000000-65000000">KSh 26M - KSh 65M</SelectItem>
-                <SelectItem value="65000000">KSh 65M+</SelectItem>
-              </SelectContent>
-            </Select>
+                  {/* Vehicle Filters */}
+                  <div className="border-t border-gray-200 pt-6">
+                    <h4 className="text-sm font-semibold text-gray-900 mb-4 flex items-center">
+                      <Filter className="h-4 w-4 mr-2 text-blue-600" />
+                      VEHICLE FILTERS
+                    </h4>
+                    
+                    <div className="space-y-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Newly Added Lots
+                        </label>
+                        <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                          <option>All</option>
+                          <option>Last 24 Hours</option>
+                          <option>Last 7 Days</option>
+                          <option>Last 30 Days</option>
+                        </select>
+                      </div>
 
-            <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger>
-                <SelectValue placeholder="Sort by" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="price">Price</SelectItem>
-                <SelectItem value="year">Year</SelectItem>
-                <SelectItem value="mileage">Mileage</SelectItem>
-                <SelectItem value="make">Make</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm text-gray-700">Search by Zip Code</span>
+                        <input type="checkbox" className="h-4 w-4 text-blue-600" />
+                      </div>
 
-        {/* Results Count */}
-        <div className="mb-6">
-          <p className="text-gray-600">
-            Showing {filteredCars.length} of {cars.length} cars
-          </p>
-        </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm text-gray-700">Buy It Now</span>
+                        <input type="checkbox" className="h-4 w-4 text-blue-600" />
+                      </div>
 
-        {/* Cars Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredCars.map((car) => (
-            <Card key={car.id} className="group hover:shadow-xl transition-all duration-300 overflow-hidden">
-              <div className="relative">
-                <Image
-                  src={car.image}
-                  alt={`${car.year} ${car.make} ${car.model}`}
-                  width={400}
-                  height={300}
-                  className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute top-4 left-4">
-                  <Badge className="bg-primary text-white">
-                    {car.condition}
-                  </Badge>
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm text-gray-700">Exclude Upcoming Lots</span>
+                        <input type="checkbox" className="h-4 w-4 text-blue-600" />
+                      </div>
+
+                      <div>
+                        <button className="w-full flex items-center justify-between text-sm text-gray-700 hover:text-gray-900">
+                          Vehicle Type
+                          <ChevronUp className="h-4 w-4" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="absolute top-4 right-4">
-                  <Badge variant="secondary" className="bg-white/90 text-gray-900">
-                    {car.year}
-                  </Badge>
+              )}
+            </div>
+          </div>
+
+          {/* Main Content */}
+          <div className="lg:col-span-3">
+            {/* Page Title */}
+            <h1 className="text-3xl font-bold text-gray-900 mb-6">{getPageTitle()}</h1>
+
+            {/* Featured Filters */}
+            <div className="mb-6">
+              <h3 className="text-sm font-medium text-gray-700 mb-3">Featured Filters:</h3>
+              <div className="flex flex-wrap gap-2">
+                {featuredFilters.map((filter, index) => (
+                  <button
+                    key={index}
+                    onClick={() => {
+                      if (!activeFilters.includes(filter)) {
+                        setActiveFilters(prev => [...prev, filter])
+                      }
+                    }}
+                    className="px-3 py-1 bg-gray-100 text-gray-700 rounded text-sm hover:bg-gray-200 transition-colors"
+                  >
+                    {filter}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Results Header */}
+            <div className="bg-white rounded-lg shadow-sm p-4 mb-6">
+              <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+                <div className="mb-4 lg:mb-0">
+                  <p className="text-sm text-gray-600">
+                    Showing 1 to {Math.min(entriesPerPage, filteredVehicles.length)} of {filteredVehicles.length} entries
+                  </p>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <div className="flex items-center space-x-2">
+                    <span className="text-sm text-gray-600">Sort By</span>
+                    <select
+                      value={sortBy}
+                      onChange={(e) => setSortBy(e.target.value)}
+                      className="px-3 py-1 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    >
+                      <option value="saleDate">Sale Date</option>
+                      <option value="currentBid">Current Bid</option>
+                      <option value="make">Make</option>
+                      <option value="year">Year</option>
+                    </select>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <span className="text-sm text-gray-600">Show</span>
+                    <select
+                      value={entriesPerPage}
+                      onChange={(e) => setEntriesPerPage(Number(e.target.value))}
+                      className="px-3 py-1 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    >
+                      <option value={25}>25 entries</option>
+                      <option value={50}>50 entries</option>
+                      <option value={100}>100 entries</option>
+                    </select>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <button className="p-2 text-gray-600 hover:text-gray-900">
+                      <Filter className="h-4 w-4" />
+                    </button>
+                    <button className="p-2 text-gray-600 hover:text-gray-900">
+                      <Save className="h-4 w-4" />
+                    </button>
+                    <button className="p-2 text-gray-600 hover:text-gray-900">
+                      <Printer className="h-4 w-4" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Vehicle Listings */}
+            <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+              {/* Table Header */}
+              <div className="bg-gray-50 px-6 py-3 border-b border-gray-200">
+                <div className="grid grid-cols-6 gap-4 text-sm font-medium text-gray-700">
+                  <div>IMAGE</div>
+                  <div>LOT INFO</div>
+                  <div>VEHICLE INFO</div>
+                  <div>CONDITION</div>
+                  <div>SALE INFO</div>
+                  <div>BIDS</div>
                 </div>
               </div>
 
-              <CardHeader className="pb-2">
-                <CardTitle className="text-lg">
-                  {car.year} {car.make} {car.model}
-                </CardTitle>
-                <div className="flex items-center text-sm text-gray-500">
-                  <MapPin className="h-4 w-4 mr-1" />
-                  {car.location}
-                  <span className="mx-2">•</span>
-                  <Car className="h-4 w-4 mr-1" />
-                  {car.mileage.toLocaleString()} miles
-                </div>
-              </CardHeader>
+              {/* Vehicle Rows */}
+              <div className="divide-y divide-gray-200">
+                {filteredVehicles.map((vehicle, index) => (
+                  <div key={index} className="p-6 hover:bg-gray-50 transition-colors">
+                    <div className="grid grid-cols-6 gap-4 items-center">
+                      {/* Image */}
+                      <div className="relative">
+                        <img
+                          src={vehicle.image}
+                          alt={`${vehicle.year} ${vehicle.make} ${vehicle.model}`}
+                          className="w-full h-20 object-cover rounded"
+                        />
+                        {vehicle.isLive && (
+                          <div className="absolute top-1 left-1">
+                            <span className="bg-green-500 text-white px-2 py-1 rounded text-xs font-semibold">
+                              Live
+                            </span>
+                          </div>
+                        )}
+                      </div>
 
-              <CardContent className="pt-0">
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-500">Current Price</span>
-                    <span className="text-lg font-bold text-primary">
-                      {formatCurrency(car.price)}
-                    </span>
-                  </div>
-                  
-                  <div className="grid grid-cols-2 gap-2 text-sm text-gray-600">
-                    <div className="flex items-center">
-                      <Fuel className="h-4 w-4 mr-1" />
-                      {car.fuelType}
-                    </div>
-                    <div className="flex items-center">
-                      <Gauge className="h-4 w-4 mr-1" />
-                      {car.transmission}
-                    </div>
-                    <div className="flex items-center">
-                      <Calendar className="h-4 w-4 mr-1" />
-                      {car.year}
-                    </div>
-                    <div className="flex items-center">
-                      <Car className="h-4 w-4 mr-1" />
-                      {car.color}
-                    </div>
-                  </div>
+                      {/* Lot Info */}
+                      <div>
+                        <h3 className="font-semibold text-gray-900 mb-1">
+                          {vehicle.year} {vehicle.make} {vehicle.model}
+                        </h3>
+                        <p className="text-sm text-gray-600 mb-1">Lot Number: {vehicle.id}</p>
+                        <p className="text-sm text-gray-600 mb-1">Title: {vehicle.title}</p>
+                        <p className="text-sm text-gray-600">Sale Date: {vehicle.saleDate}</p>
+                        <div className="flex items-center space-x-2 mt-2">
+                          <button className="text-gray-400 hover:text-gray-600">
+                            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                            </svg>
+                          </button>
+                          <button className="text-gray-400 hover:text-gray-600">
+                            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
 
-                  <div className="space-y-1">
-                    <p className="text-sm text-gray-500">Key Features:</p>
-                    <div className="flex flex-wrap gap-1">
-                      {car.features.slice(0, 3).map((feature, index) => (
-                        <Badge key={index} variant="outline" className="text-xs">
-                          {feature}
-                        </Badge>
-                      ))}
-                      {car.features.length > 3 && (
-                        <Badge variant="outline" className="text-xs">
-                          +{car.features.length - 3} more
-                        </Badge>
-                      )}
+                      {/* Vehicle Info */}
+                      <div>
+                        <div className="flex items-center text-sm text-gray-600 mb-1">
+                          <MapPin className="h-4 w-4 mr-1" />
+                          {vehicle.location}
+                        </div>
+                        <p className="text-sm text-gray-600 mb-1">Sale Status: {vehicle.saleStatus}</p>
+                        {vehicle.isLive && (
+                          <button className="bg-green-600 text-white px-2 py-1 rounded text-xs font-semibold">
+                            Live Auctions
+                          </button>
+                        )}
+                      </div>
+
+                      {/* Condition */}
+                      <div>
+                        <p className="text-sm text-gray-600 mb-1">
+                          Odometer: {vehicle.odometer.toLocaleString()} mi ({vehicle.odometerStatus})
+                        </p>
+                        <p className="text-sm text-gray-600 mb-1">
+                          Actual Cash Value: {formatCurrency(vehicle.actualCashValue, vehicle.currency)}
+                        </p>
+                      </div>
+
+                      {/* Sale Info */}
+                      <div>
+                        <p className="text-sm text-gray-600 mb-1">Salvage Title</p>
+                        <p className="text-sm text-gray-600 mb-1">Damage: {vehicle.damage}</p>
+                        <p className="text-sm text-gray-600">
+                          Keys Available: {vehicle.keysAvailable ? 'Yes' : 'No'}
+                        </p>
+                      </div>
+
+                      {/* Bids */}
+                      <div>
+                        <p className="text-sm text-gray-600 mb-1">
+                          Current Bid {formatCurrency(vehicle.currentBid, vehicle.currency)}
+                        </p>
+                        <div className="flex space-x-2 mt-2">
+                          <button className="bg-blue-600 text-white px-3 py-1 rounded text-xs font-semibold hover:bg-blue-700 transition-colors">
+                            Bid Now
+                          </button>
+                          <button className="bg-yellow-500 text-white px-3 py-1 rounded text-xs font-semibold hover:bg-yellow-600 transition-colors">
+                            Details
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
+                ))}
+              </div>
+            </div>
 
-                  <div className="flex gap-2 mt-4">
-                    <Button className="flex-1">
-                      View Details
-                    </Button>
-                    <Button variant="outline" size="icon">
-                      <Users className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+            {/* Pagination */}
+            <div className="mt-6 flex items-center justify-between">
+              <div className="text-sm text-gray-600">
+                Showing 1 to {Math.min(entriesPerPage, filteredVehicles.length)} of {filteredVehicles.length} entries
+              </div>
+              <div className="flex items-center space-x-2">
+                <button className="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-50">
+                  Previous
+                </button>
+                <button className="px-3 py-1 bg-blue-600 text-white rounded text-sm">
+                  1
+                </button>
+                <button className="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-50">
+                  2
+                </button>
+                <button className="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-50">
+                  3
+                </button>
+                <button className="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-50">
+                  Next
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-
-        {/* Load More */}
-        {filteredCars.length > 0 && (
-          <div className="text-center mt-12">
-            <Button variant="outline" size="lg">
-              Load More Cars
-            </Button>
-          </div>
-        )}
-
-        {/* No Results */}
-        {filteredCars.length === 0 && (
-          <div className="text-center py-12">
-            <Car className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">No cars found</h3>
-            <p className="text-gray-600 mb-4">Try adjusting your search criteria</p>
-            <Button onClick={() => {
-              setSearchQuery('')
-              setMakeFilter('ALL')
-              setConditionFilter('ALL')
-              setPriceRange('ALL')
-            }}>
-              Clear Filters
-            </Button>
-          </div>
-        )}
       </div>
     </div>
   )

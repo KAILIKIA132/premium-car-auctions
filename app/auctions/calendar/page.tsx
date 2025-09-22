@@ -3,7 +3,12 @@
 import { useState } from 'react'
 import { ChevronLeft, ChevronRight, Calendar, Clock, MapPin, Users, Filter } from 'lucide-react'
 
-const calendarData = {
+const calendarData: Record<string, Record<string, Array<{
+  time: string;
+  title: string;
+  location: string;
+  participants: number;
+}>>> = {
   '2024-09': {
     '22': [
       { time: '09:00', title: 'Luxury Car Auction', location: 'Nairobi', participants: 45 },
@@ -112,7 +117,7 @@ export default function SalesCalendarPage() {
 
   const getAuctionsForDate = (day: number) => {
     const dateKey = String(day).padStart(2, '0')
-    return calendarData[monthKey as keyof typeof calendarData]?.[dateKey as keyof typeof calendarData[typeof monthKey]] || []
+    return calendarData[monthKey]?.[dateKey] || []
   }
 
   const filteredAuctions = selectedDate ? 
