@@ -249,11 +249,11 @@ export default function CarsPage() {
     <div className="min-h-screen bg-gray-50">
       {/* Breadcrumbs */}
       <div className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <nav className="flex items-center space-x-2 text-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
+          <nav className="flex items-center space-x-1 sm:space-x-2 text-xs sm:text-sm overflow-x-auto">
             {getBreadcrumbs().map((crumb, index) => (
-              <div key={index} className="flex items-center">
-                {index > 0 && <span className="text-gray-400 mx-2">&gt;</span>}
+              <div key={index} className="flex items-center flex-shrink-0">
+                {index > 0 && <span className="text-gray-400 mx-1 sm:mx-2">&gt;</span>}
                 <span className={index === getBreadcrumbs().length - 1 ? 'text-gray-600' : 'text-blue-600 hover:text-blue-800'}>
                   {crumb}
                 </span>
@@ -263,8 +263,8 @@ export default function CarsPage() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 sm:gap-8">
           {/* Left Sidebar - Filters */}
           <div className="lg:col-span-1">
             <div className="bg-white rounded-lg shadow-sm p-6">
@@ -453,14 +453,14 @@ export default function CarsPage() {
               {/* Vehicle Rows */}
               <div className="divide-y divide-gray-200">
                 {filteredVehicles.map((vehicle, index) => (
-                  <div key={index} className="p-6 hover:bg-gray-50 transition-colors">
-                    <div className="grid grid-cols-6 gap-4 items-center">
+                  <div key={index} className="p-3 sm:p-6 hover:bg-gray-50 transition-colors">
+                    <div className="grid grid-cols-1 sm:grid-cols-6 gap-3 sm:gap-4 items-start sm:items-center">
                       {/* Image */}
-                      <div className="relative">
+                      <div className="relative sm:col-span-1">
                         <img
                           src={vehicle.image}
                           alt={`${vehicle.year} ${vehicle.make} ${vehicle.model}`}
-                          className="w-full h-20 object-cover rounded"
+                          className="w-full h-32 sm:h-20 object-cover rounded"
                         />
                         {vehicle.isLive && (
                           <div className="absolute top-1 left-1">
@@ -472,20 +472,20 @@ export default function CarsPage() {
                       </div>
 
                       {/* Lot Info */}
-                      <div>
-                        <h3 className="font-semibold text-gray-900 mb-1">
+                      <div className="sm:col-span-2">
+                        <h3 className="font-semibold text-gray-900 mb-1 text-sm sm:text-base">
                           {vehicle.year} {vehicle.make} {vehicle.model}
                         </h3>
-                        <p className="text-sm text-gray-600 mb-1">Lot Number: {vehicle.id}</p>
-                        <p className="text-sm text-gray-600 mb-1">Title: {vehicle.title}</p>
-                        <p className="text-sm text-gray-600">Sale Date: {vehicle.saleDate}</p>
+                        <p className="text-xs sm:text-sm text-gray-600 mb-1">Lot Number: {vehicle.id}</p>
+                        <p className="text-xs sm:text-sm text-gray-600 mb-1">Title: {vehicle.title}</p>
+                        <p className="text-xs sm:text-sm text-gray-600">Sale Date: {vehicle.saleDate}</p>
                         <div className="flex items-center space-x-2 mt-2">
-                          <button className="text-gray-400 hover:text-gray-600" aria-label="Compare">
+                          <button className="text-gray-400 hover:text-gray-600 p-1 touch-manipulation" aria-label="Compare">
                             <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                             </svg>
                           </button>
-                          <button className="text-gray-400 hover:text-gray-600" aria-label="Email">
+                          <button className="text-gray-400 hover:text-gray-600 p-1 touch-manipulation" aria-label="Email">
                             <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                             </svg>
@@ -494,48 +494,48 @@ export default function CarsPage() {
                       </div>
 
                       {/* Vehicle Info */}
-                      <div>
-                        <div className="flex items-center text-sm text-gray-600 mb-1">
-                          <MapPin className="h-4 w-4 mr-1" />
-                          {vehicle.location}
+                      <div className="sm:col-span-1">
+                        <div className="flex items-center text-xs sm:text-sm text-gray-600 mb-1">
+                          <MapPin className="h-3 w-3 sm:h-4 sm:w-4 mr-1 flex-shrink-0" />
+                          <span className="truncate">{vehicle.location}</span>
                         </div>
-                        <p className="text-sm text-gray-600 mb-1">Sale Status: {vehicle.saleStatus}</p>
+                        <p className="text-xs sm:text-sm text-gray-600 mb-1">Sale Status: {vehicle.saleStatus}</p>
                         {vehicle.isLive && (
-                          <button className="bg-green-600 text-white px-2 py-1 rounded text-xs font-semibold">
+                          <button className="bg-green-600 text-white px-2 py-1 rounded text-xs font-semibold touch-manipulation">
                             Live Auctions
                           </button>
                         )}
                       </div>
 
                       {/* Condition */}
-                      <div>
-                        <p className="text-sm text-gray-600 mb-1">
+                      <div className="sm:col-span-1">
+                        <p className="text-xs sm:text-sm text-gray-600 mb-1">
                           Odometer: {vehicle.odometer.toLocaleString()} mi ({vehicle.odometerStatus})
                         </p>
-                        <p className="text-sm text-gray-600 mb-1">
+                        <p className="text-xs sm:text-sm text-gray-600 mb-1">
                           Actual Cash Value: {formatCurrency(vehicle.actualCashValue, vehicle.currency)}
                         </p>
                       </div>
 
                       {/* Sale Info */}
-                      <div>
-                        <p className="text-sm text-gray-600 mb-1">Salvage Title</p>
-                        <p className="text-sm text-gray-600 mb-1">Damage: {vehicle.damage}</p>
-                        <p className="text-sm text-gray-600">
+                      <div className="sm:col-span-1">
+                        <p className="text-xs sm:text-sm text-gray-600 mb-1">Salvage Title</p>
+                        <p className="text-xs sm:text-sm text-gray-600 mb-1">Damage: {vehicle.damage}</p>
+                        <p className="text-xs sm:text-sm text-gray-600">
                           Keys Available: {vehicle.keysAvailable ? 'Yes' : 'No'}
                         </p>
                       </div>
 
                       {/* Bids */}
-                      <div>
-                        <p className="text-sm text-gray-600 mb-1">
+                      <div className="sm:col-span-1">
+                        <p className="text-xs sm:text-sm text-gray-600 mb-1">
                           Current Bid {formatCurrency(vehicle.currentBid, vehicle.currency)}
                         </p>
-                        <div className="flex space-x-2 mt-2">
-                          <button className="bg-blue-600 text-white px-3 py-1 rounded text-xs font-semibold hover:bg-blue-700 transition-colors">
+                        <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 mt-2">
+                          <button className="bg-blue-600 text-white px-3 py-2 rounded text-xs font-semibold hover:bg-blue-700 transition-colors touch-manipulation">
                             Bid Now
                           </button>
-                          <button className="bg-yellow-500 text-white px-3 py-1 rounded text-xs font-semibold hover:bg-yellow-600 transition-colors">
+                          <button className="bg-yellow-500 text-white px-3 py-2 rounded text-xs font-semibold hover:bg-yellow-600 transition-colors touch-manipulation">
                             Details
                           </button>
                         </div>

@@ -165,17 +165,53 @@
 
 /* Button styles matching Salvage Reseller */
 .btn-primary {
-  @apply bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors;
+  @apply bg-blue-600 text-white px-4 py-2 sm:px-6 sm:py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors touch-manipulation;
 }
 
 .btn-secondary {
-  @apply bg-green-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-green-700 transition-colors;
+  @apply bg-green-600 text-white px-4 py-2 sm:px-6 sm:py-2 rounded-lg font-semibold hover:bg-green-700 transition-colors touch-manipulation;
 }
 
 .btn-cta {
-  @apply bg-red-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-red-700 transition-colors;
+  @apply bg-red-600 text-white px-4 py-2 sm:px-6 sm:py-2 rounded-lg font-semibold hover:bg-red-700 transition-colors touch-manipulation;
 }
 
 .btn-outline {
-  @apply border-2 border-white text-white px-6 py-2 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors;
+  @apply border-2 border-white text-white px-4 py-2 sm:px-6 sm:py-2 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors touch-manipulation;
+}
+
+/* Mobile-specific improvements */
+@media (max-width: 640px) {
+  .search-bar {
+    @apply px-4 py-3 pr-12 text-base;
+  }
+  
+  .filter-btn {
+    @apply px-3 py-2 text-xs min-h-[36px];
+  }
+  
+  .auction-card {
+    @apply p-3;
+  }
+  
+  .dropdown-menu {
+    @apply w-56;
+  }
+}
+
+/* Touch-friendly interactions */
+.touch-manipulation {
+  touch-action: manipulation;
+}
+
+/* Prevent zoom on input focus on mobile */
+@media (max-width: 768px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  textarea,
+  select {
+    font-size: 16px;
+  }
 }

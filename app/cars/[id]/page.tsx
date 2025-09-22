@@ -112,8 +112,8 @@ export default function VehicleDetailPage({ params }: { params: { id: string } }
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-8">
           {/* Left Column - Vehicle Images */}
           <div className="lg:col-span-2">
             <div className="bg-white rounded-lg shadow-sm overflow-hidden">
@@ -131,10 +131,10 @@ export default function VehicleDetailPage({ params }: { params: { id: string } }
                 </div>
                 <div className="absolute top-4 right-4">
                   <div className="flex space-x-2">
-                    <button className="bg-white/90 hover:bg-white p-2 rounded-full transition-colors">
+                    <button className="bg-white/90 hover:bg-white p-2 rounded-full transition-colors" aria-label="Add to watchlist">
                       <Heart className={`h-5 w-5 ${isWatched ? 'text-red-500 fill-current' : 'text-gray-600'}`} />
                     </button>
-                    <button className="bg-white/90 hover:bg-white p-2 rounded-full transition-colors">
+                    <button className="bg-white/90 hover:bg-white p-2 rounded-full transition-colors" aria-label="Share">
                       <Share2 className="h-5 w-5 text-gray-600" />
                     </button>
                   </div>
@@ -142,12 +142,14 @@ export default function VehicleDetailPage({ params }: { params: { id: string } }
                 <button
                   onClick={prevImage}
                   className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white p-2 rounded-full transition-colors"
+                  aria-label="Previous image"
                 >
                   <ChevronLeft className="h-5 w-5" />
                 </button>
                 <button
                   onClick={nextImage}
                   className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white p-2 rounded-full transition-colors"
+                  aria-label="Next image"
                 >
                   <ChevronRight className="h-5 w-5" />
                 </button>
@@ -172,22 +174,22 @@ export default function VehicleDetailPage({ params }: { params: { id: string } }
                     </button>
                   ))}
                 </div>
-                <button className="mt-4 text-blue-600 hover:text-blue-800 font-medium">
+                <button className="mt-4 text-blue-600 hover:text-blue-800 font-medium touch-manipulation">
                   View Large Images
                 </button>
               </div>
             </div>
 
             {/* Vehicle Title */}
-            <div className="mt-6">
-              <h1 className="text-2xl font-bold text-gray-900 mb-2">{vehicleData.title}</h1>
-              <div className="flex items-center space-x-4 text-sm text-gray-600">
+            <div className="mt-4 sm:mt-6">
+              <h1 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">{vehicleData.title}</h1>
+              <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4 text-sm text-gray-600">
                 <div className="flex items-center">
-                  <MapPin className="h-4 w-4 mr-1" />
+                  <MapPin className="h-4 w-4 mr-1 flex-shrink-0" />
                   <span>Auction Location: {vehicleData.auctionLocation}</span>
                 </div>
                 <div className="flex items-center">
-                  <Calendar className="h-4 w-4 mr-1" />
+                  <Calendar className="h-4 w-4 mr-1 flex-shrink-0" />
                   <span>Sale Date: {vehicleData.saleDate} - {vehicleData.saleTime}</span>
                 </div>
               </div>
@@ -197,29 +199,29 @@ export default function VehicleDetailPage({ params }: { params: { id: string } }
           {/* Right Column - Details and Bidding */}
           <div className="space-y-6">
             {/* Action Buttons */}
-            <div className="bg-white rounded-lg shadow-sm p-4">
-              <div className="flex flex-wrap gap-2">
+            <div className="bg-white rounded-lg shadow-sm p-3 sm:p-4">
+              <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-2">
                 <button 
                   onClick={() => setIsWatched(!isWatched)}
-                  className={`flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  className={`flex items-center justify-center px-3 py-2 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-colors touch-manipulation ${
                     isWatched 
                       ? 'bg-red-100 text-red-700 hover:bg-red-200' 
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >
-                  <Heart className="h-4 w-4 mr-2" />
+                  <Heart className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
                   Add to Watchlist
                 </button>
-                <button className="flex items-center px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors">
-                  <Share2 className="h-4 w-4 mr-2" />
+                <button className="flex items-center justify-center px-3 py-2 sm:px-4 sm:py-2 bg-gray-100 text-gray-700 rounded-lg text-xs sm:text-sm font-medium hover:bg-gray-200 transition-colors touch-manipulation">
+                  <Share2 className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
                   Compare
                 </button>
-                <button className="flex items-center px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors">
-                  <Mail className="h-4 w-4 mr-2" />
+                <button className="flex items-center justify-center px-3 py-2 sm:px-4 sm:py-2 bg-gray-100 text-gray-700 rounded-lg text-xs sm:text-sm font-medium hover:bg-gray-200 transition-colors touch-manipulation">
+                  <Mail className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
                   Send to Email
                 </button>
-                <button className="flex items-center px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors">
-                  <Printer className="h-4 w-4 mr-2" />
+                <button className="flex items-center justify-center px-3 py-2 sm:px-4 sm:py-2 bg-gray-100 text-gray-700 rounded-lg text-xs sm:text-sm font-medium hover:bg-gray-200 transition-colors touch-manipulation">
+                  <Printer className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
                   Print
                 </button>
               </div>
@@ -237,7 +239,7 @@ export default function VehicleDetailPage({ params }: { params: { id: string } }
                   <span className="text-sm text-gray-600">VIN:</span>
                   <div className="flex items-center">
                     <span className="text-sm font-medium">{vehicleData.vin}</span>
-                    <button className="ml-2 text-blue-600 hover:text-blue-800 text-sm font-medium">
+                    <button className="ml-2 text-blue-600 hover:text-blue-800 text-sm font-medium" aria-label="Buy VIN Report">
                       Buy VIN Report
                     </button>
                     <CheckCircle className="ml-2 h-4 w-4 text-green-500" />
@@ -255,7 +257,7 @@ export default function VehicleDetailPage({ params }: { params: { id: string } }
                   <span className="text-sm text-gray-600">Title State/Type:</span>
                   <div className="flex items-center">
                     <span className="text-sm font-medium">{vehicleData.titleState}</span>
-                    <button className="ml-1 text-gray-400 hover:text-gray-600">
+                    <button className="ml-1 text-gray-400 hover:text-gray-600" aria-label="Title warning">
                       <AlertTriangle className="h-4 w-4" />
                     </button>
                   </div>
@@ -338,11 +340,11 @@ export default function VehicleDetailPage({ params }: { params: { id: string } }
                         />
                       </div>
                     </div>
-                    <button className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center">
+                    <button className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center touch-manipulation">
                       <Gavel className="h-4 w-4 mr-2" />
                       Place Bid
                     </button>
-                    <button className="w-full bg-gray-100 text-gray-700 py-2 px-4 rounded-lg font-semibold hover:bg-gray-200 transition-colors flex items-center justify-center">
+                    <button className="w-full bg-gray-100 text-gray-700 py-3 px-4 rounded-lg font-semibold hover:bg-gray-200 transition-colors flex items-center justify-center touch-manipulation">
                       <Calculator className="h-4 w-4 mr-2" />
                       Fee Calculator
                     </button>
@@ -370,21 +372,21 @@ export default function VehicleDetailPage({ params }: { params: { id: string } }
             <div className="bg-white rounded-lg shadow-sm p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">PARTNER SERVICES</h3>
               <div className="space-y-3">
-                <button className="w-full flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                <button className="w-full flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors touch-manipulation">
                 <div className="flex items-center">
                     <Truck className="h-5 w-5 text-blue-600 mr-3" />
                     <span className="text-sm font-medium">Transportation</span>
                 </div>
                   <ChevronRight className="h-4 w-4 text-gray-400" />
                 </button>
-                <button className="w-full flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                <button className="w-full flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors touch-manipulation">
                 <div className="flex items-center">
                     <Wrench className="h-5 w-5 text-blue-600 mr-3" />
                     <span className="text-sm font-medium">Inspection Services</span>
                 </div>
                   <ChevronRight className="h-4 w-4 text-gray-400" />
                 </button>
-                <button className="w-full flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                <button className="w-full flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors touch-manipulation">
                 <div className="flex items-center">
                     <CreditCard className="h-5 w-5 text-blue-600 mr-3" />
                     <span className="text-sm font-medium">Financing</span>

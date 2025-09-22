@@ -24,46 +24,46 @@ export function Navbar() {
 
   return (
     <>
-      {/* Top Blue Header Bar - Salvage Reseller Style */}
-      <div className="sr-header-blue text-white py-3">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-6">
-          <div className="flex items-center">
-                <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mr-4">
-                  <span className="text-blue-600 font-bold text-lg">PA</span>
-                </div>
-                <div>
-                  <div className="font-bold text-xl">PREMIUM AUCTIONS</div>
-                  <div className="text-sm text-blue-100">AN INNOVATIVE PLATFORM</div>
+              {/* Top Blue Header Bar - Salvage Reseller Style */}
+              <div className="sr-header-blue text-white py-2 sm:py-3">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3 sm:space-x-6">
+                      <div className="flex items-center">
+                        <div className="w-8 h-8 sm:w-12 sm:h-12 bg-white rounded-full flex items-center justify-center mr-2 sm:mr-4">
+                          <span className="text-blue-600 font-bold text-sm sm:text-lg">PA</span>
+                        </div>
+                        <div>
+                          <div className="font-bold text-sm sm:text-xl">PREMIUM AUCTIONS</div>
+                          <div className="text-xs sm:text-sm text-blue-100">AN INNOVATIVE PLATFORM</div>
+                        </div>
+                      </div>
+                      <div className="hidden lg:block border-l border-blue-400 pl-6">
+                        <div className="bg-yellow-400 text-black px-3 py-1 rounded text-sm font-bold">
+                          5th YEAR ANNIVERSARY
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-2 sm:space-x-6">
+                      <div className="bg-yellow-400 text-black px-2 py-1 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-bold">
+                        5th YEAR ANNIVERSARY
+                      </div>
+                      <div className="hidden sm:block text-right">
+                        <div className="text-lg font-semibold flex items-center">
+                          <Phone className="h-4 w-4 mr-2" />
+                          +254-700-000-000
+                        </div>
+                        <div className="text-xs text-blue-100">(We Speak Swahili)</div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className="hidden lg:block border-l border-blue-400 pl-6">
-                <div className="bg-yellow-400 text-black px-3 py-1 rounded text-sm font-bold">
-                  5th YEAR ANNIVERSARY
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center space-x-6">
-              <div className="bg-yellow-400 text-black px-4 py-2 rounded-lg text-sm font-bold">
-                5th YEAR ANNIVERSARY
-              </div>
-              <div className="text-right">
-                <div className="text-lg font-semibold flex items-center">
-                  <Phone className="h-4 w-4 mr-2" />
-                  +254-700-000-000
-          </div>
-                <div className="text-xs text-blue-100">(We Speak Swahili)</div>
-          </div>
-            </div>
-          </div>
-            </div>
-          </div>
 
       {/* Green Navigation Bar - Enhanced Dropdown Style */}
       <nav className="sr-nav-green text-white relative sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between py-4">
+          <div className="flex items-center justify-between py-3 sm:py-4">
             <nav className="hidden md:flex items-center space-x-8">
               <div className="relative group">
                 <a href="/cars" className="hover:text-green-200 transition-colors flex items-center">
@@ -122,133 +122,134 @@ export function Navbar() {
                 </div>
               </div>
             </nav>
-            <div className="flex items-center space-x-4">
-            {isAuthenticated ? (
-              <div className="flex items-center space-x-4">
-                <NotificationCenter />
-                <div className="relative group">
-                    <button className="flex items-center space-x-2 px-3 py-2 text-white hover:text-green-200 transition-colors">
-                    <User className="h-5 w-5" />
-                    <span>{user?.name}</span>
-                  </button>
-                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl py-1 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                      <Link href="/dashboard" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-green-50">
-                      <Settings className="h-4 w-4 mr-2" />
-                      Dashboard
-                    </Link>
-                      <Link href="/my-bids" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-green-50">
-                      <Car className="h-4 w-4 mr-2" />
-                      My Bids
-                    </Link>
-                    <button
-                      onClick={logout}
-                        className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-green-50"
-                    >
-                      <LogOut className="h-4 w-4 mr-2" />
-                      Sign Out
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ) : (
-                <>
-                <Link 
-                  href="/auth/signin"
-                    className="bg-white text-green-600 px-6 py-2 rounded-lg font-semibold hover:bg-green-50 transition-colors"
-                >
-                  Sign In
-                </Link>
-                <Link 
-                  href="/auth/signup"
-                    className="bg-red-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-red-700 transition-colors"
-                >
-                    Register Free
-                </Link>
-                </>
-            )}
-          </div>
+                    <div className="flex items-center space-x-2 sm:space-x-4">
+                      {isAuthenticated ? (
+                        <div className="flex items-center space-x-2 sm:space-x-4">
+                          <NotificationCenter />
+                          <div className="relative group">
+                            <button className="flex items-center space-x-1 sm:space-x-2 px-2 sm:px-3 py-2 text-white hover:text-green-200 transition-colors">
+                              <User className="h-4 w-4 sm:h-5 sm:w-5" />
+                              <span className="hidden sm:inline">{user?.name}</span>
+                            </button>
+                            <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl py-1 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                              <Link href="/dashboard" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-green-50">
+                                <Settings className="h-4 w-4 mr-2" />
+                                Dashboard
+                              </Link>
+                              <Link href="/my-bids" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-green-50">
+                                <Car className="h-4 w-4 mr-2" />
+                                My Bids
+                              </Link>
+                              <button
+                                onClick={logout}
+                                className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-green-50"
+                              >
+                                <LogOut className="h-4 w-4 mr-2" />
+                                Sign Out
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        <>
+                          <Link 
+                            href="/auth/signin"
+                            className="bg-white text-green-600 px-3 py-2 sm:px-6 sm:py-2 rounded-lg font-semibold hover:bg-green-50 transition-colors text-sm sm:text-base"
+                          >
+                            Sign In
+                          </Link>
+                          <Link 
+                            href="/auth/signup"
+                            className="bg-red-600 text-white px-3 py-2 sm:px-6 sm:py-2 rounded-lg font-semibold hover:bg-red-700 transition-colors text-sm sm:text-base"
+                          >
+                            Register Free
+                          </Link>
+                        </>
+                      )}
+                    </div>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
-            <button
-                className="p-2 text-white hover:text-green-200"
-              onClick={() => setIsOpen(!isOpen)}
-            >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </button>
-          </div>
+                    {/* Mobile menu button */}
+                    <div className="md:hidden flex items-center">
+                      <button
+                        className="p-2 text-white hover:text-green-200 touch-manipulation"
+                        onClick={() => setIsOpen(!isOpen)}
+                        aria-label="Toggle mobile menu"
+                      >
+                        {isOpen ? <X className="h-5 w-5 sm:h-6 sm:w-6" /> : <Menu className="h-5 w-5 sm:h-6 sm:w-6" />}
+                      </button>
+                    </div>
         </div>
 
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="md:hidden">
-              <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-green-700 border-t border-green-500">
-              <Link
-                href="/auctions"
-                  className="block px-3 py-2 text-base font-medium text-white hover:text-green-200"
-                onClick={() => setIsOpen(false)}
-              >
-                Live Auctions
-              </Link>
-              <Link
-                href="/cars"
-                  className="block px-3 py-2 text-base font-medium text-white hover:text-green-200"
-                onClick={() => setIsOpen(false)}
-              >
-                Browse Cars
-              </Link>
-              <Link
-                href="/sell"
-                  className="block px-3 py-2 text-base font-medium text-white hover:text-green-200"
-                onClick={() => setIsOpen(false)}
-              >
-                Sell Your Car
-              </Link>
-              <Link
-                href="/about"
-                  className="block px-3 py-2 text-base font-medium text-white hover:text-green-200"
-                onClick={() => setIsOpen(false)}
-              >
-                About
-              </Link>
-              {isAuthenticated ? (
-                  <div className="pt-4 border-t border-green-500">
-                    <p className="px-3 py-2 text-sm text-green-100">Signed in as {user?.name}</p>
-                  <Link
-                    href="/dashboard"
-                      className="block px-3 py-2 text-base font-medium text-white hover:text-green-200"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    Dashboard
-                  </Link>
-                  <button
-                    onClick={() => {
-                      logout()
-                      setIsOpen(false)
-                    }}
-                      className="block w-full text-left px-3 py-2 text-base font-medium text-white hover:text-green-200"
-                  >
-                    Sign Out
-                  </button>
-                </div>
-              ) : (
-                  <div className="pt-4 border-t border-green-500 space-y-2">
-                  <Link 
-                    href="/auth/signin" 
-                    onClick={() => setIsOpen(false)}
-                      className="w-full px-3 py-2 text-left text-white hover:text-green-200 rounded-lg transition-colors block"
-                  >
-                    Sign In
-                  </Link>
-                  <Link 
-                    href="/auth/signup" 
-                    onClick={() => setIsOpen(false)}
-                      className="w-full bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-lg transition-colors block"
-                  >
-                      Register Free
-                  </Link>
-                </div>
-              )}
+                  {/* Mobile Navigation */}
+                  {isOpen && (
+                    <div className="md:hidden">
+                      <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-green-700 border-t border-green-500">
+                        <Link
+                          href="/auctions"
+                          className="block px-3 py-3 text-base font-medium text-white hover:text-green-200 touch-manipulation"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          Live Auctions
+                        </Link>
+                        <Link
+                          href="/cars"
+                          className="block px-3 py-3 text-base font-medium text-white hover:text-green-200 touch-manipulation"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          Browse Cars
+                        </Link>
+                        <Link
+                          href="/sell"
+                          className="block px-3 py-3 text-base font-medium text-white hover:text-green-200 touch-manipulation"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          Sell Your Car
+                        </Link>
+                        <Link
+                          href="/about"
+                          className="block px-3 py-3 text-base font-medium text-white hover:text-green-200 touch-manipulation"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          About
+                        </Link>
+                        {isAuthenticated ? (
+                          <div className="pt-4 border-t border-green-500">
+                            <p className="px-3 py-2 text-sm text-green-100">Signed in as {user?.name}</p>
+                            <Link
+                              href="/dashboard"
+                              className="block px-3 py-3 text-base font-medium text-white hover:text-green-200 touch-manipulation"
+                              onClick={() => setIsOpen(false)}
+                            >
+                              Dashboard
+                            </Link>
+                            <button
+                              onClick={() => {
+                                logout()
+                                setIsOpen(false)
+                              }}
+                              className="block w-full text-left px-3 py-3 text-base font-medium text-white hover:text-green-200 touch-manipulation"
+                            >
+                              Sign Out
+                            </button>
+                          </div>
+                        ) : (
+                          <div className="pt-4 border-t border-green-500 space-y-2">
+                            <Link 
+                              href="/auth/signin" 
+                              onClick={() => setIsOpen(false)}
+                              className="w-full px-3 py-3 text-left text-white hover:text-green-200 rounded-lg transition-colors block touch-manipulation"
+                            >
+                              Sign In
+                            </Link>
+                            <Link 
+                              href="/auth/signup" 
+                              onClick={() => setIsOpen(false)}
+                              className="w-full bg-red-600 hover:bg-red-700 text-white px-3 py-3 rounded-lg transition-colors block touch-manipulation"
+                            >
+                              Register Free
+                            </Link>
+                          </div>
+                        )}
             </div>
           </div>
         )}

@@ -4,26 +4,26 @@ export default function HomePage() {
   return (
     <div className="min-h-screen">
       {/* Search Bar Section - Salvage Reseller Style */}
-      <section className="bg-gray-100 py-8">
+      <section className="bg-gray-100 py-6 sm:py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <div className="text-center mb-6 sm:mb-8">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
               Find Your Dream Car
             </h1>
-            <p className="text-lg text-gray-600">Search by vehicle description, VIN or Lot#</p>
+            <p className="text-base sm:text-lg text-gray-600">Search by vehicle description, VIN or Lot#</p>
           </div>
           <div className="max-w-4xl mx-auto">
             <div className="relative">
               <input
                 type="text"
                 placeholder="Search by vehicle description, VIN or Lot#"
-                className="search-bar"
+                className="w-full px-4 sm:px-6 py-3 sm:py-4 pr-12 sm:pr-16 text-base sm:text-lg border-0 rounded-lg shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-200"
               />
               <button 
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-600 text-white p-2 sm:px-4 sm:py-2 rounded-lg hover:bg-blue-700 transition-colors"
                 aria-label="Search"
               >
-                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="h-4 w-4 sm:h-5 sm:w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </button>
@@ -33,9 +33,9 @@ export default function HomePage() {
       </section>
 
       {/* Featured Filter Buttons */}
-      <section className="bg-white py-6 border-b border-gray-200">
+      <section className="bg-white py-4 sm:py-6 border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 sm:gap-3">
             {[
               { name: 'Cars', href: '/cars?type=sedans' },
               { name: 'Trucks', href: '/cars?type=trucks' },
@@ -65,13 +65,13 @@ export default function HomePage() {
               { name: 'No Bids Yet', href: '/cars?filter=no-bids' },
               { name: 'Lots with Bids', href: '/cars?filter=with-bids' }
             ].map((filter, index) => (
-              <a
-                key={index}
-                href={filter.href}
-                className="filter-btn"
-              >
-                {filter.name}
-              </a>
+                <a
+                  key={index}
+                  href={filter.href}
+                  className="bg-gray-100 text-gray-700 px-3 py-2 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium hover:bg-blue-600 hover:text-white transition-colors border border-gray-200 hover:border-blue-600 min-h-[36px] flex items-center justify-center"
+                >
+                  {filter.name}
+                </a>
             ))}
           </div>
         </div>
