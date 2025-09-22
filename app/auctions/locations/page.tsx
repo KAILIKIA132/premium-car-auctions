@@ -113,7 +113,7 @@ export default function AuctionLocationsPage() {
       }
     })
 
-  const counties = [...new Set(locations.map(loc => loc.county))]
+  const counties = Array.from(new Set(locations.map(loc => loc.county)))
 
   return (
     <div className="min-h-screen bg-gray-50">
