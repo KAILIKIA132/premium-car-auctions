@@ -253,7 +253,7 @@ export default function CarsPage() {
           <nav className="flex items-center space-x-2 text-sm">
             {getBreadcrumbs().map((crumb, index) => (
               <div key={index} className="flex items-center">
-                {index > 0 && <span className="text-gray-400 mx-2">></span>}
+                {index > 0 && <span className="text-gray-400 mx-2">&gt;</span>}
                 <span className={index === getBreadcrumbs().length - 1 ? 'text-gray-600' : 'text-blue-600 hover:text-blue-800'}>
                   {crumb}
                 </span>
@@ -302,6 +302,7 @@ export default function CarsPage() {
                             <button
                               onClick={() => setActiveFilters(prev => prev.filter(f => f !== filter))}
                               className="ml-1 hover:text-blue-600"
+                              aria-label={`Remove ${filter} filter`}
                             >
                               <X className="h-3 w-3" />
                             </button>
@@ -323,7 +324,7 @@ export default function CarsPage() {
                         <label className="block text-sm font-medium text-gray-700 mb-2">
                           Newly Added Lots
                         </label>
-                        <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" aria-label="Newly added lots filter">
                           <option>All</option>
                           <option>Last 24 Hours</option>
                           <option>Last 7 Days</option>
@@ -333,17 +334,17 @@ export default function CarsPage() {
 
                       <div className="flex items-center justify-between">
                         <span className="text-sm text-gray-700">Search by Zip Code</span>
-                        <input type="checkbox" className="h-4 w-4 text-blue-600" />
+                        <input type="checkbox" className="h-4 w-4 text-blue-600" aria-label="Search by zip code" />
                       </div>
 
                       <div className="flex items-center justify-between">
                         <span className="text-sm text-gray-700">Buy It Now</span>
-                        <input type="checkbox" className="h-4 w-4 text-blue-600" />
+                        <input type="checkbox" className="h-4 w-4 text-blue-600" aria-label="Buy it now filter" />
                       </div>
 
                       <div className="flex items-center justify-between">
                         <span className="text-sm text-gray-700">Exclude Upcoming Lots</span>
-                        <input type="checkbox" className="h-4 w-4 text-blue-600" />
+                        <input type="checkbox" className="h-4 w-4 text-blue-600" aria-label="Exclude upcoming lots" />
                       </div>
 
                       <div>
@@ -399,6 +400,7 @@ export default function CarsPage() {
                       value={sortBy}
                       onChange={(e) => setSortBy(e.target.value)}
                       className="px-3 py-1 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      aria-label="Sort by"
                     >
                       <option value="saleDate">Sale Date</option>
                       <option value="currentBid">Current Bid</option>
@@ -412,6 +414,7 @@ export default function CarsPage() {
                       value={entriesPerPage}
                       onChange={(e) => setEntriesPerPage(Number(e.target.value))}
                       className="px-3 py-1 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      aria-label="Entries per page"
                     >
                       <option value={25}>25 entries</option>
                       <option value={50}>50 entries</option>
@@ -419,13 +422,13 @@ export default function CarsPage() {
                     </select>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <button className="p-2 text-gray-600 hover:text-gray-900">
+                    <button className="p-2 text-gray-600 hover:text-gray-900" aria-label="Filter">
                       <Filter className="h-4 w-4" />
                     </button>
-                    <button className="p-2 text-gray-600 hover:text-gray-900">
+                    <button className="p-2 text-gray-600 hover:text-gray-900" aria-label="Save">
                       <Save className="h-4 w-4" />
                     </button>
-                    <button className="p-2 text-gray-600 hover:text-gray-900">
+                    <button className="p-2 text-gray-600 hover:text-gray-900" aria-label="Print">
                       <Printer className="h-4 w-4" />
                     </button>
                   </div>
@@ -477,12 +480,12 @@ export default function CarsPage() {
                         <p className="text-sm text-gray-600 mb-1">Title: {vehicle.title}</p>
                         <p className="text-sm text-gray-600">Sale Date: {vehicle.saleDate}</p>
                         <div className="flex items-center space-x-2 mt-2">
-                          <button className="text-gray-400 hover:text-gray-600">
+                          <button className="text-gray-400 hover:text-gray-600" aria-label="Compare">
                             <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                             </svg>
                           </button>
-                          <button className="text-gray-400 hover:text-gray-600">
+                          <button className="text-gray-400 hover:text-gray-600" aria-label="Email">
                             <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                             </svg>

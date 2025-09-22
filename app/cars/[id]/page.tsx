@@ -100,13 +100,13 @@ export default function VehicleDetailPage({ params }: { params: { id: string } }
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <nav className="flex items-center space-x-2 text-sm">
             <a href="/" className="text-blue-600 hover:text-blue-800">HOME</a>
-            <span className="text-gray-400">></span>
+            <span className="text-gray-400">&gt;</span>
             <a href="/cars" className="text-blue-600 hover:text-blue-800">BUY SALVAGE CARS</a>
-            <span className="text-gray-400">></span>
+            <span className="text-gray-400">&gt;</span>
             <a href="/cars?make=jeep" className="text-blue-600 hover:text-blue-800">JEEP</a>
-            <span className="text-gray-400">></span>
+            <span className="text-gray-400">&gt;</span>
             <a href="/cars?make=jeep&model=compass" className="text-blue-600 hover:text-blue-800">COMPASS</a>
-            <span className="text-gray-400">></span>
+            <span className="text-gray-400">&gt;</span>
             <span className="text-gray-600">LOT DETAILS</span>
           </nav>
         </div>
