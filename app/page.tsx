@@ -504,12 +504,11 @@ export default function HomePage() {
             <div className="bg-white rounded-lg p-6 shadow-sm">
               <div className="flex items-center mb-4">
                 <img
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=60&h=60&fit=crop&crop=face"
-                  alt="Customer"
+                  src="/images/team/james-mutua.jpg" alt="Customer"
                   className="w-12 h-12 rounded-full mr-4"
                 />
                 <div>
-                  <h4 className="font-semibold text-gray-900">Michael Chen</h4>
+                  <h4 className="font-semibold text-gray-900">Michael Kirimi</h4>
                   <div className="flex text-yellow-400">
                     ★★★★★
                   </div>
@@ -522,12 +521,12 @@ export default function HomePage() {
             <div className="bg-white rounded-lg p-6 shadow-sm">
               <div className="flex items-center mb-4">
                 <img
-                  src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=60&h=60&fit=crop&crop=face"
+                  src="/images/team/aisha-mwangi.jpg"
                   alt="Customer"
                   className="w-12 h-12 rounded-full mr-4"
                 />
                 <div>
-                  <h4 className="font-semibold text-gray-900">Sarah Johnson</h4>
+                  <h4 className="font-semibold text-gray-900">Peninah Katana</h4>
                   <div className="flex text-yellow-400">
                     ★★★★★
                   </div>
@@ -540,12 +539,12 @@ export default function HomePage() {
             <div className="bg-white rounded-lg p-6 shadow-sm">
               <div className="flex items-center mb-4">
                 <img
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop&crop=face"
+                  src="/images/team/kwame-ochieng.jpg"
                   alt="Customer"
                   className="w-12 h-12 rounded-full mr-4"
                 />
                 <div>
-                  <h4 className="font-semibold text-gray-900">David Thompson</h4>
+                  <h4 className="font-semibold text-gray-900">Fredric Wanyonyi</h4>
                   <div className="flex text-yellow-400">
                     ★★★★★
                   </div>

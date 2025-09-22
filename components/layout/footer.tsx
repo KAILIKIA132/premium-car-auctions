@@ -75,17 +75,17 @@ export function Footer() {
               <div className="flex items-center space-x-3">
                 <MapPin className="h-5 w-5 text-gray-400" />
                 <span className="text-gray-400 text-sm">
-                  123 Auction Street<br />
-                  Toronto, ON M5V 3A8
+                  123 Westlands Auction Street<br />
+                  Nairobi, ON M5V 3A8
                 </span>
               </div>
               <div className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-gray-400" />
-                <span className="text-gray-400 text-sm">+1 (555) 123-4567</span>
+                <span className="text-gray-400 text-sm">+254 (706) 668-927</span>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-gray-400" />
-                <span className="text-gray-400 text-sm">info@premiumauctions.com</span>
+                <span className="text-gray-400 text-sm">info@premiumauctions.com.ke</span>
               </div>
             </div>
           </div>

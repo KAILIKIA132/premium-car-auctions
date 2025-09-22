@@ -4,17 +4,17 @@ import Image from 'next/image'
 
 const testimonials = [
   {
-    name: 'Sarah Johnson',
-    location: 'New York, NY',
-    image: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face',
+    name: 'Purity Murithi',
+    location: 'Nairobi, NBO',
+    image: '/images/team/aisha-mwangi.jpg',
     rating: 5,
     text: 'I found my dream Ferrari 488 GTB through this platform. The entire process was seamless, and the car exceeded my expectations. The authentication process gave me complete confidence in my purchase.',
     car: '2019 Ferrari 488 GTB'
   },
   {
-    name: 'Michael Chen',
-    location: 'Los Angeles, CA',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
+    name: 'Aaron Kailikia',
+    location: 'Mombasa, Bombolulu',
+    image: '/images/team/james-mutua.jpg',
     rating: 5,
     text: 'As a classic car collector, I appreciate the quality of vehicles on this platform. The detailed descriptions and professional photography helped me make an informed decision on my 1967 Mustang.',
     car: '1967 Ford Mustang GT'
